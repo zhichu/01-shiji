@@ -382,7 +382,8 @@ endfor
 
 draw p3 enlarged 6pt withpen pensquare scaled 4pt withcolor .85\MPcolor{orange} ;
 
-label.lft(textext("\ssxx \chinesenumerals\pageno"),z3) withcolor blue ;
+label.ulft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno-1\relax}"),z3) withcolor blue ;
+label.llft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno\relax}"),z3) withcolor blue ;
 StopPage ;
 \stopuseMPgraphic
 

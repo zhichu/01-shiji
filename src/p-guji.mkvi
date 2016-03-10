@@ -297,16 +297,6 @@ pdf.setobjcompresslevel(0)
 
 
 
-% \startmode[half]
-
-
-% \setuppapersize[A4,landscape,rotated,270][A4]
-
-% \setuppagenumbering[location=]
-
-% \setupinterlinespace[line=1.75em]
-
-
 % \definelayout
 %   [odd]
 %   [width=\dimexpr 22\bodyfontsize \relax
@@ -324,26 +314,7 @@ pdf.setobjcompresslevel(0)
 %   ,lines=10%
 %   ]
 
-% \definelayer[pagenumber][doublesided=yes]
 
-% \definecolor[red][r=1]
-% \definecolor[trwhite][s=1, t=.5, a=1]
-% \setupbackgrounds[state=repeat]
-% \defineoverlay[pagebg][\useMPgraphic{pagebg}]
-% \setupbackgrounds[page][background=pagebg]
-% \startuseMPgraphic{pagebg}
-% StartPage ;
-% fill Page withcolor \MPcolor{orange} ;
-% fill Field[Text][Text] withcolor \MPcolor{trwhite} ;
-% StopPage ;
-% \stopuseMPgraphic
-
-
-% \stopmode
-
-
-
-% \startnotmode[half]
 
 
 \definepapersize [竹簡]  [\c!width=297mm,\c!height=450mm]
@@ -416,80 +387,6 @@ StopPage ;
 \stopuseMPgraphic
 
 
-
-% \stopnotmode
-
-\enablemode[half]
-
-
-
-
-% \definelayer[test][state=repeat,doublesided=yes]
-
-% \setlayer[test][right]{Odd page}
-% \setlayer[test][left] {Even page}
-
-% \setupbackgrounds[page][background=test]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% \definelayer[graphics]
-%     [x=0mm, y=0mm,  % from upper left corner of paper
-%      width=\paperwidth, height=\paperheight] % let the layer cover the full paper
-% \setupbackgrounds[page][background=graphics]
-
-
-% \setlayer
-%    [graphics]
-%    [x=\MPx{text:1}%
-%    ,y=\MPy{text:1}%
-%    ,width=\textwidth
-%    ,height=\the\dimexpr\textheight+\gujiparameter{版芯寬度}\relax
-%    ]{\uniqueMPgraphic{烏絲欄}}
-%    ]{test}
-
-% \startuniqueMPgraphic{烏絲欄}
-% fill unitsquare xyscaled(OverlayWidth,OverlayHeight) withcolor \MPcolor{orange} ;
-% \stopuniqueMPgraphic
-
-
-
-
-
-
-% \definelayer
-%   [Logo]
-%   [location={right,top},
-%    x=0mm,y=-\paperheight,
-%    width=\paperwidth, height=\paperheight,
-%    hoffset=0mm,voffset=0mm,
-%   ]
-
-% \setlayer[Logo]
-%   {\uniqueMPgraphic{烏絲欄}}
-
-% \setupbackgrounds[page][background=Logo]
 
 
 

@@ -1,0 +1,531 @@
+%D \module
+%D   [       file=p-guji,
+%D        version=2016.02.12,
+%D          title=\CONTEXT\ Page Macros,
+%D       subtitle=Zhu Jian Style,
+%D         author=Zhichu Chen,
+%D           date=\currentdate,
+%D      copyright={PRAGMA ADE \& \CONTEXT\ Development Team}]
+%C
+%C This module is part of the \CONTEXT\ macro||package and is
+%C therefore copyrighted by \PRAGMA. See mreadme.pdf for
+%C details.
+
+\startmodule[guji]
+
+\writestatus{loading}{ConTeXt Page Macros / GuJi}
+
+%D This is a very experimental module. Eventually it will replace the current
+%D multi column mechanism (that then will be an instance). The \LUA\ part of
+%D the interface will quite probably change so don't use that one directly
+%D (yet).
+
+
+\registerctxluafile{guji}{1.001}
+
+\startluacode
+
+pdf.setcompresslevel(0)
+pdf.setobjcompresslevel(0)
+--pdf.setpagesattributes{/Rotate 90}
+
+\stopluacode
+
+
+
+
+\unprotect
+
+\installnamespace                {guji}
+\installcommandhandler \????guji {guji} \????guji
+
+\setupguji
+  [文字大小=27pt%
+  ,基線深度=0.12% Adobe Song Std: .12
+  ,版芯寬度=\dimexpr3\baselineskip\relax
+  ,每頁列數=10%
+  ,每版列數=20%
+  ,每列字數=22%
+  ,正文字體寬=1%
+  ,正文字體高=1%
+  ,夾注字體寬=0.5%
+  ,夾注字體高=0.75%
+  ,眉批字體寬=0.85%
+  ,眉批字體高=1%
+  ,對齊方式=center%
+  ,調試模式=off%
+  ]
+
+\definefontfeature
+  [zhengwen]
+  [default]
+  [wenzi=%
+    {baseline=\gujiparameter{基線深度}%
+    ,anchor=\gujiparameter{對齊方式}%
+    ,rotate%
+    ,expand={x=\gujiparameter{正文字體寬}%
+            ,y=\gujiparameter{正文字體高}}%
+    ,trace=\gujiparameter{調試模式}%
+    }%
+  ,mode=node%
+  ]
+\definefontfeature
+  [jiazhu]
+  [default]
+  [wenzi=%
+    {baseline=\gujiparameter{基線深度}%
+    ,anchor=\gujiparameter{對齊方式}%
+    ,rotate=90%
+    ,expand={x=\gujiparameter{夾注字體寬}%
+            ,y=\gujiparameter{夾注字體高}}%
+    ,trace=\gujiparameter{調試模式}%
+    }%
+  ,mode=node%
+  ]
+\definefontfeature
+  [meipi]
+  [default]
+  [wenzi=%
+    {baseline=\gujiparameter{基線深度}%
+    ,anchor=\gujiparameter{對齊方式}%
+    ,rotate=90%
+    ,expand={x=\gujiparameter{眉批字體寬}%
+            ,y=\gujiparameter{眉批字體高}}%
+    ,trace=\gujiparameter{調試模式}%
+    }%
+  ,mode=node%
+  ]
+
+
+
+% \definefallbackfamily [mainface] [serif] [Adobe Fangsong Std]
+\definefallbackfamily [mainface] [serif] [Adobe Song Std]
+  [range={0x00400-0x2FA1F}%
+  ,force=yes%
+  ,features=zhengwen%
+  ]
+\definefallbackfamily [mainface] [sans] [Adobe Fangsong Std]
+  [range={0x00400-0x2FA1F}%
+  ,force=yes%
+  ,features=meipi%
+  ]
+\definefallbackfamily [mainface] [mono] [Adobe Fangsong Std]
+  [range={0x00400-0x2FA1F}%
+  ,force=yes%
+  ,features=jiazhu%
+  ]
+
+
+
+
+
+\definefontfamily
+  [mainface]
+  [serif]
+  [TeX Gyre Termes]
+\definefontfamily
+  [mainface]
+  [sans]
+  [TeX Gyre Heros]
+\definefontfamily
+  [mainface]
+  [mono]
+  [TeX Gyre Cursor]
+\definefontfamily
+  [mainface]
+  [math]
+  [TeX Gyre Termes Math]
+
+
+
+
+
+
+
+
+
+\definebodyfontenvironment[\gujiparameter{文字大小}]
+\setupalign[hz,hanging]
+\setupbodyfont[mainface,\gujiparameter{文字大小}]
+
+
+\definescript [zhujian]    [\c!method=zhujian]
+
+\setscript
+  [zhujian]
+
+\startsetups footnote:zhujian
+  \setscript[zhujian]
+\stopsetups
+
+\setupnote    [footnote][location=none,width=\leftmarginwidth,factor=0,setups={footnote:zhujian}]
+\setupnotation[footnote][color=blue]
+\setuptexttexts
+  [margin]
+  []
+  [{\framed[frame=off,height=\textheight,width=broad,offset=none,align=high,style=\ssxx\setupinterlineskip]{\placenotes[footnote][before=]}}]
+
+% \enabletrackers[visualizers.justification] % overfull/underfull
+% \enabletrackers[typesetters.suspects] % suspicious spacing
+
+% \tracingoutput1
+% \tracingonline2
+% \showboxbreadth1000
+% \showboxdepth1000
+
+% \defaultgridwidowpenalty        \!!zeropoint
+% \defaultgriddisplaywidowpenalty \!!zeropoint
+% \widowpenalty        \!!zerocount
+% \clubpenalty         \!!zerocount
+% \displaywidowpenalty \!!zerocount
+
+\newbox   \remainjiazhu
+\newbox   \currentjiazhu
+\newbox   \lastjiazhu
+\newbox   \lastjian
+% \newdimen \zhengwenwidth \zhengwenwidth\dimexpr\gujiparameter{文字大小}*\bodyfontsize\relax
+\newdimen \jiazhuindent  \jiazhuindent\dimexpr2\bodyfontsize\relax
+\newdimen \jianheight
+\newdimen \lastjianheight
+\newdimen \firstjiazhuheight
+\newcount \saveprevgraf
+\newcount \jiazhucount
+
+\defineattribute[gujiattr]
+
+
+\starttexdefinition 夾注 [#注]
+%D calculate the height of the remain space
+  \ifhmode
+    \everymath   \emptytoks
+    \everydisplay\emptytoks
+    \predisplaypenalty\plustenthousand\relax \postdisplaypenalty\plustenthousand\relax
+    \abovedisplayskip-\baselineskip
+    \belowdisplayskip-\baselineskip
+    \abovedisplayshortskip\abovedisplayskip
+    \belowdisplayshortskip\belowdisplayskip
+    $$
+        \global\lastjianheight\dimexpr\predisplaysize-2em\relax
+    $$
+%D restore the \prevgraf counter
+    \saveprevgraf\prevgraf
+%D the display math environment adds 3 extra lines: "above," "math," and "below"
+    \advance\saveprevgraf by -3
+%D and the previous line has not really been officially finished
+    \advance\saveprevgraf by -1
+    \prevgraf\saveprevgraf
+    \setlocalhsize \jianheight\localhsize
+    \noindent\kern\lastjianheight
+    \firstjiazhuheight \dimexpr \jianheight-\lastjianheight \relax
+  \else
+    \saveprevgraf\prevgraf
+    \setlocalhsize \jianheight\localhsize
+    \advance\jianheight-\jiazhuindent \firstjiazhuheight\jianheight
+    \hangindent=\jiazhuindent \hangafter=\zerocount
+  \fi
+%D done calculation.
+%D
+%D arrange jiazhu
+  \setbox\remainjiazhu=\vbox
+    \bgroup
+%       \offinterlineskip
+      \ifdim\firstjiazhuheight<1em
+        \parshape 1 \!!zeropoint\dimexpr 2\jianheight \relax
+      \else
+        \parshape 2 \!!zeropoint\dimexpr 2\firstjiazhuheight \relax \!!zeropoint\dimexpr 2\jianheight \relax
+      \fi
+      \tt #注\par
+    \egroup
+%D
+  \prevgraf\saveprevgraf
+%   \dosetattribute{gujiattr}{2}% jiazhu
+  \loop\ifvbox\remainjiazhu
+      \setbox\currentjiazhu=\vsplit\remainjiazhu to\baselineskip
+      \setbox\scratchbox=\vbox{%
+        \nointerlineskip
+        \offinterlineskip
+        \unvbox\currentjiazhu \par
+        \global\setbox\currentjiazhu=\lastbox
+        }%
+      \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
+      \setbox\scratchbox=\vbox{%
+        \hsize=\dimexpr\wd\scratchbox/2\relax
+        \unhbox\scratchbox\par
+        \setbox2\lastbox
+        \unskip\unpenalty\unskip
+        \setbox1\lastbox
+        \global\setbox\currentjiazhu=\vbox to \gujiparameter{正文字體寬}\bodyfontsize
+          \bgroup
+            \forgetall
+            \baselineskip\!!zeropoint
+            \lineskiplimit\!!zeropoint
+            \nointerlineskip
+            \hbox{\unhbox1}%
+            \vss
+            \hbox{\unhbox2}%
+          \egroup
+      }%
+      \ifvoid\remainjiazhu
+        \setbox\lastjiazhu=\box\currentjiazhu
+      \else
+        \allowbreak\dontcomplain\dontleavehmode\box\currentjiazhu\allowbreak
+      \fi
+  \repeat
+  \allowbreak\dontcomplain\dontleavehmode\box\lastjiazhu\allowbreak
+%   \dosetattribute{gujiattr}{1}% zhengwen
+\stoptexdefinition
+
+
+%D
+%D
+%D
+%D
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \startmode[half]
+
+
+% \setuppapersize[A4,landscape,rotated,270][A4]
+
+% \setuppagenumbering[location=]
+
+% \setupinterlinespace[line=1.75em]
+
+
+% \definelayout
+%   [odd]
+%   [width=\dimexpr 22\bodyfontsize \relax
+%   ,backspace=\dimexpr 7\bodyfontsize \relax
+%   ,topspace=50pt
+%   ,grid=yes%
+%   ,lines=10%
+%   ]
+% \definelayout
+%   [even]
+%   [width=\dimexpr 22\bodyfontsize \relax
+%   ,backspace=\dimexpr 7\bodyfontsize \relax
+%   ,topspace=10pt%
+%   ,grid=yes%
+%   ,lines=10%
+%   ]
+
+% \definelayer[pagenumber][doublesided=yes]
+
+% \definecolor[red][r=1]
+% \definecolor[trwhite][s=1, t=.5, a=1]
+% \setupbackgrounds[state=repeat]
+% \defineoverlay[pagebg][\useMPgraphic{pagebg}]
+% \setupbackgrounds[page][background=pagebg]
+% \startuseMPgraphic{pagebg}
+% StartPage ;
+% fill Page withcolor \MPcolor{orange} ;
+% fill Field[Text][Text] withcolor \MPcolor{trwhite} ;
+% StopPage ;
+% \stopuseMPgraphic
+
+
+% \stopmode
+
+
+
+% \startnotmode[half]
+
+
+\definepapersize [竹簡]  [\c!width=297mm,\c!height=450mm]
+\definepapersize [整頁]  [\c!width=450mm,\c!height=297mm]
+
+
+\setuppapersize[竹簡,rotated,270][整頁]
+
+\setuppagenumbering[location=]
+
+% \setupinterlinespace[line=1.45em]
+
+
+\setuplayout
+  [width=\dimexpr \gujiparameter{每列字數}\bodyfontsize \relax
+  ,horoffset=\zeropoint
+  ,veroffset=\zeropoint
+  ,headerdistance=\zeropoint
+  ,footerdistance=\zeropoint
+  ,backspace=\dimexpr 7\bodyfontsize \relax
+  ,topspace=\the\baselineskip
+  ,grid=min%
+  ,marking=color%
+  ,lines=\gujiparameter{每版列數}%
+  ]
+
+\definelayer[pagenumber][doublesided=yes]
+
+\definecolor[red][r=1]
+\definecolor[trwhite][s=1, t=.5, a=1]
+\setupbackgrounds[state=repeat]
+\defineoverlay[frame][\useMPgraphic{烏絲欄}]
+\setupbackgrounds[page][background={frame}]
+
+\setupMPvariables
+  [烏絲欄]
+  [baseline=\the\baselineskip
+  ,lines=\gujiparameter{每頁列數}%
+  ,chwd=\the\dimexpr \gujiparameter{正文字體寬}\bodyfontsize \relax
+  ]
+
+\startuseMPgraphic{烏絲欄}{baseline,lines,chwd}
+StartPage ;
+path p[] ;
+numeric l, n, w, dw ;
+
+l := \MPvar{baseline} ;
+n := \MPvar{lines} ;
+w := \MPvar{chwd} ;
+dw := (l-w) ;
+
+z1 = Location[Text][Text] + (0,TextHeight) ;
+z2 = Location[Text][Text] + (0,-3l) ;
+z3 = .5[z1,z2] + (TextWidth,dw) ;
+
+p0 := origin shifted (0,dw) -- origin shifted (TextWidth,dw) ;
+p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
+p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
+p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
+
+for i=1 upto n :
+  draw p1 shifted (z1+(0,-i*l)) withcolor .85\MPcolor{orange} ;
+  draw p2 shifted (z2+(0, i*l)) withcolor .85\MPcolor{orange} ;
+endfor
+
+draw p3 enlarged 6pt withpen pensquare scaled 4pt withcolor .85\MPcolor{orange} ;
+
+label.lft(textext("\ssxx \chinesenumerals\pageno"),z3) withcolor blue ;
+StopPage ;
+\stopuseMPgraphic
+
+
+
+% \stopnotmode
+
+\enablemode[half]
+
+
+
+
+% \definelayer[test][state=repeat,doublesided=yes]
+
+% \setlayer[test][right]{Odd page}
+% \setlayer[test][left] {Even page}
+
+% \setupbackgrounds[page][background=test]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \definelayer[graphics]
+%     [x=0mm, y=0mm,  % from upper left corner of paper
+%      width=\paperwidth, height=\paperheight] % let the layer cover the full paper
+% \setupbackgrounds[page][background=graphics]
+
+
+% \setlayer
+%    [graphics]
+%    [x=\MPx{text:1}%
+%    ,y=\MPy{text:1}%
+%    ,width=\textwidth
+%    ,height=\the\dimexpr\textheight+\gujiparameter{版芯寬度}\relax
+%    ]{\uniqueMPgraphic{烏絲欄}}
+%    ]{test}
+
+% \startuniqueMPgraphic{烏絲欄}
+% fill unitsquare xyscaled(OverlayWidth,OverlayHeight) withcolor \MPcolor{orange} ;
+% \stopuniqueMPgraphic
+
+
+
+
+
+
+% \definelayer
+%   [Logo]
+%   [location={right,top},
+%    x=0mm,y=-\paperheight,
+%    width=\paperwidth, height=\paperheight,
+%    hoffset=0mm,voffset=0mm,
+%   ]
+
+% \setlayer[Logo]
+%   {\uniqueMPgraphic{烏絲欄}}
+
+% \setupbackgrounds[page][background=Logo]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bgroup
+\catcode`|=13
+\gdef|{\csname 夾注\endcsname}
+\egroup
+
+
+\appendtoks
+  \setbox\scratchbox=\vsplit\normalpagebox to .5\textheight
+  \global\setbox\normalpagebox=\vbox{\unvbox\scratchbox\vskip\gujiparameter{版芯寬度}\unvbox\normalpagebox}%
+\to \everybeforeoutput
+
+
+
+
+\protect
+% \nopenalties
+
+\stopmodule
+\endinput

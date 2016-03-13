@@ -40,9 +40,10 @@ pdf.setobjcompresslevel(0)
 \installcommandhandler \????guji {guji} \????guji
 
 \setupguji
-  [文字大小=27pt%
+  [古籍=史記%
+  ,文字大小=27pt%
   ,基線深度=0.12% Adobe Song Std: .12
-  ,版芯寬度=\dimexpr3\baselineskip\relax
+  ,版芯寬度=\the\dimexpr\baselineskip\relax
   ,每頁列數=10%
   ,每版列數=20%
   ,每列字數=22%
@@ -54,6 +55,8 @@ pdf.setobjcompresslevel(0)
   ,眉批字體高=1%
   ,對齊方式=center%
   ,調試模式=off%
+  ,樣式=金絲欄%
+  ,頁碼=單頁頁碼%
   ]
 
 \definefontfeature
@@ -183,8 +186,8 @@ pdf.setobjcompresslevel(0)
 \newbox   \currentjiazhu
 \newbox   \lastjiazhu
 \newbox   \lastjian
-% \newdimen \zhengwenwidth \zhengwenwidth\dimexpr\gujiparameter{文字大小}*\bodyfontsize\relax
-\newdimen \jiazhuindent  \jiazhuindent\dimexpr2\bodyfontsize\relax
+% \newdimen \zhengwenwidth \zhengwenwidth\dimexpr \gujiparameter{文字大小}*\gujiparameter{文字大小} \relax
+\newdimen \jiazhuindent  \jiazhuindent\dimexpr \gujiparameter{文字大小}*2 \relax
 \newdimen \jianheight
 \newdimen \lastjianheight
 \newdimen \firstjiazhuheight
@@ -254,7 +257,7 @@ pdf.setobjcompresslevel(0)
         \setbox2\lastbox
         \unskip\unpenalty\unskip
         \setbox1\lastbox
-        \global\setbox\currentjiazhu=\vbox to \gujiparameter{正文字體寬}\bodyfontsize
+        \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
           \bgroup
             \forgetall
             \baselineskip\!!zeropoint
@@ -329,12 +332,12 @@ pdf.setobjcompresslevel(0)
 
 
 \setuplayout
-  [width=\dimexpr \gujiparameter{每列字數}\bodyfontsize \relax
+  [width=\dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數} \relax
   ,horoffset=\zeropoint
   ,veroffset=\zeropoint
   ,headerdistance=\zeropoint
   ,footerdistance=\zeropoint
-  ,backspace=\dimexpr 7\bodyfontsize \relax
+  ,backspace=\dimexpr \gujiparameter{文字大小}*7 \relax
   ,topspace=\the\baselineskip
   ,grid=min%
   ,marking=color%
@@ -346,58 +349,309 @@ pdf.setobjcompresslevel(0)
 \definecolor[red][r=1]
 \definecolor[trwhite][s=1, t=.5, a=1]
 \setupbackgrounds[state=repeat]
-\defineoverlay[frame][\useMPgraphic{烏絲欄}]
-\setupbackgrounds[page][background={frame}]
+\defineoverlay[frame][\uniqueMPgraphic{\gujiparameter{樣式}}]
+\defineoverlay[pageno][\useMPgraphic{\gujiparameter{頁碼}}]
+
+\setupbackgrounds[page][background={frame,pageno}]
+
+\definelayer[pagenumber][width=\textwidth,height=\textheight]
+
+\startsetups[pagenumber]
+ \setlayer
+   [pagenumber]
+   [preset=lefttop%
+   ,x=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數}*2/3 \relax
+%    ,y=\the\dimexpr \gujiparameter{每頁列數}\baselineskip + \gujiparameter{版芯寬度}/2 - (\gujiparameter{文字大小}*\gujiparameter{正文字體寬}+\strutdp-\strutht)/2 \relax
+   ,y=\the\dimexpr (\gujiparameter{文字大小}*\gujiparameter{正文字體寬}+\strutdp-\strutht)/(-2) \relax
+   ]{\ssxx \vtop{\chinesenumerals{\userpagenumber}}}
+\stopsetups
+
+
+% \setuppagenumbering[state=none]
+
+% \setupbackgrounds[text][text][background=pagenumber,setups=pagenumber]
+
+
+
+
+
+\setupMPvariables
+  [框線]
+  [baseline=\the\baselineskip
+  ,lines=\gujiparameter{每頁列數}%
+  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+  ,corewd=\gujiparameter{版芯寬度}%
+  ]
+
+\setupMPvariables
+  [單頁頁碼]
+  [baseline=\the\baselineskip
+  ,lines=\gujiparameter{每頁列數}%
+  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+  ,corewd=\gujiparameter{版芯寬度}%
+  ]
+
+\setupMPvariables
+  [雙頁頁碼]
+  [baseline=\the\baselineskip
+  ,lines=\gujiparameter{每頁列數}%
+  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+  ,corewd=\gujiparameter{版芯寬度}%
+  ]
 
 \setupMPvariables
   [烏絲欄]
   [baseline=\the\baselineskip
   ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{正文字體寬}\bodyfontsize \relax
+  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+  ,corewd=\gujiparameter{版芯寬度}%
   ]
 
-\startuseMPgraphic{烏絲欄}{baseline,lines,chwd}
+\setupMPvariables
+  [金絲欄]
+  [baseline=\the\baselineskip
+  ,lines=\gujiparameter{每頁列數}%
+  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+  ,corewd=\gujiparameter{版芯寬度}%
+  ]
+
+
+
+\startuniqueMPgraphic{烏絲欄}{baseline,lines,chwd,corewd}
 StartPage ;
 path p[] ;
-numeric l, n, w, dw ;
+numeric l, n, wd, ht, dp, dw, D ;
 
 l := \MPvar{baseline} ;
 n := \MPvar{lines} ;
-w := \MPvar{chwd} ;
-dw := (l-w) ;
+wd := \MPvar{chwd} ;
+D := \MPvar{corewd} ;
+ht := StrutHeight ;
+dp := StrutDepth ;
+dw := (wd+dp-ht)/2 ;
 
+% top left corner
 z1 = Location[Text][Text] + (0,TextHeight) ;
-z2 = Location[Text][Text] + (0,-3l) ;
-z3 = .5[z1,z2] + (TextWidth,dw) ;
+% bottom left corner
+z2 = z1 + (0,-2n*l-D) ;
+% z2 = Location[Text][Text] + (0,-D) ;
+% center right
+z3 = .5[z1,z2] + (.7TextWidth,dw) ;
 
 p0 := origin shifted (0,dw) -- origin shifted (TextWidth,dw) ;
 p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
 p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
 p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
 
+drawoptions (withcolor .125white) ;
+
 for i=1 upto n :
-  draw p1 shifted (z1+(0,-i*l)) withcolor .85\MPcolor{orange} ;
-  draw p2 shifted (z2+(0, i*l)) withcolor .85\MPcolor{orange} ;
+  draw p1 shifted (z1+(0,-i*l)) ;
+  draw p2 shifted (z2+(0, i*l)) ;
 endfor
 
-draw p3 enlarged 6pt withpen pensquare scaled 4pt withcolor .85\MPcolor{orange} ;
+draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
+StopPage ;
+\stopuniqueMPgraphic
 
-label.ulft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno-1\relax}"),z3) withcolor blue ;
-label.llft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno\relax}"),z3) withcolor blue ;
+
+\startuniqueMPgraphic{金絲欄}{baseline,lines,chwd,corewd}
+StartPage ;
+path p[] ;
+numeric l, n, wd, ht, dp, dw, m ;
+pair WD, L, D, H;
+
+l := \MPvar{baseline} ;
+n := \MPvar{lines} ;
+wd := \MPvar{chwd} ;
+m := \MPvar{corewd} ;
+ht := StrutHeight ;
+dp := StrutDepth ;
+dw := (wd+dp-ht)/2 ;
+
+% top left corner
+z1 = Location[Text][Text] + (0,TextHeight+dw) ;
+% bottom left corner
+z2 = z1 + (0,-2n*l-m) ;
+% unit length
+WD = (wd,0) ; L = (TextWidth,0) ;
+% unit width
+D = (0,m) ; H = (0,TextHeight) ;
+
+z0 = .5[z1,z2] ;
+
+
+
+p0 := origin -- origin shifted L ;
+p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
+p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
+p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
+
+p4 := origin -- origin shifted (0,y2-y1) ;
+p5 := p4 -- reverse p4 shifted L -- cycle ;
+
+
+
+z10 = z0 + 5WD ; z20 + z10 = 2z0 + L ;
+
+z11 - z12 = D ;
+.5[z11,z12] = origin - .2WD ;
+z13 = z12 + .5WD ;
+z14 = origin ;
+z15 = z11 + .5WD ;
+
+p6 := for i=11 upto 15 : z[i] -- endfor cycle ;
+
+drawoptions (withcolor .875\MPcolor{orange}) ;
+
+% for i=1 upto n :
+%   draw p1 shifted (z1+(0,-i*l)) ;
+%   draw p2 shifted (z2+(0, i*l)) ;
+% endfor
+
+draw p5 shifted z1 ;
+
+for i=1 upto n :
+  draw p0 shifted (z1+(0,-i*l)) ;
+  draw p0 shifted (z2+(0, i*l)) ;
+endfor
+
+fill p6 shifted z10;
+fill p6 rotated 180 shifted z20 ;
+
+draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
+StopPage ;
+\stopuniqueMPgraphic
+
+
+\startuseMPgraphic{雙頁頁碼}{baseline,lines,chwd,corewd}
+StartPage ;
+numeric l, n, wd, ht, dp, dw, D ;
+
+l := \MPvar{baseline} ;
+n := \MPvar{lines} ;
+wd := \MPvar{chwd} ;
+D := \MPvar{corewd} ;
+ht := StrutHeight ;
+dp := StrutDepth ;
+dw := (wd+dp-ht)/2 ;
+
+% top left corner
+z1 = Location[Text][Text] + (0,TextHeight) ;
+% bottom left corner
+z2 = z1 + (0,-2n*l-D) ;
+% z2 = Location[Text][Text] + (0,-D) ;
+% center right
+z3 = .5[z1,z2] + (.7TextWidth,dw) ;
+
+
+label.ulft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno-1\relax}"),z3) ;
+label.llft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno\relax}"),z3) ;
+StopPage ;
+\stopuseMPgraphic
+
+
+\startuseMPgraphic{單頁頁碼}{baseline,lines,chwd,corewd}
+StartPage ;
+path p[] ;
+numeric l, n, wd, ht, dp, dw, m ;
+pair WD, L, D, H;
+
+l := \MPvar{baseline} ;
+n := \MPvar{lines} ;
+wd := \MPvar{chwd} ;
+m := \MPvar{corewd} ;
+ht := StrutHeight ;
+dp := StrutDepth ;
+dw := (wd+dp-ht)/2 ;
+
+% top left corner
+z1 = Location[Text][Text] + (0,TextHeight+dw) ;
+% bottom left corner
+z2 = z1 + (0,-2n*l-m) ;
+% unit length
+WD = (wd,0) ; L = (TextWidth,0) ;
+% unit width
+D = (0,m) ; H = (0,TextHeight) ;
+
+z0 = .5[z1,z2] ;
+
+
+
+p0 := origin -- origin shifted L ;
+p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
+p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
+p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
+
+p4 := origin -- origin shifted (0,y2-y1) ;
+p5 := p4 -- reverse p4 shifted L -- cycle ;
+
+
+
+z10 = z0 + 5WD ; z20 + z10 = 2z0 + L ;
+
+
+label.rt(textext("\ssxx \gujiparameter{古籍}\getmarking[chapter][first]"),z10) ;
+label.lft(textext("\ssxx \chinesenumerals{\the\pageno}"),z20) ;
 StopPage ;
 \stopuseMPgraphic
 
 
 
 
+\setupheadtext[content=史記目錄]
 
+\def\gujichapter{第\chinesenumerals}
+\defineconversion [guji]                   [\gujichapter]
 
+\setuphead[part]
+  [style=normal%
+  ,textstyle=normal%
+  ,numberstyle=normal%
+  ,number=yes%
+  ,continue=yes%
+  ,alternative=command%
+  ,hang=line%
+  ,conversion=guji%
+  ,before=%
+  ,after=%
+  ,command=\gobbletwoargument%
+  ]
 
+\setuphead[chapter]
+  [style=normal%
+  ,textstyle=normal%
+  ,numberstyle=normal%
+  ,number=yes%
+  ,page=right%
+  ,continue=yes%
+  ,alternative=command%
+  ,hang=line%
+  ,conversion=guji%
+  ,before=%
+  ,after=%
+  ,command=\doChapter%
+  ]
 
+\define[2]\doChapter{#2#1}
 
+\definehead[本紀][chapter][style=,before=,after=]
+\definehead[列傳][chapter][style=,before=,after=]
+\definehead[世家][chapter][style=,before=,after=]
 
+\setuplist
+  [chapter]
+  [alternative=command%
+  ,command=\doChapterTOC
+  ]
+\setuplist
+  [part]
+  [alternative=command%
+  ,command=\doPartTOC
+  ]
 
-
+\define[3]\doPartTOC{\hskip\dimexpr \gujiparameter{文字大小}*2 \relax#2}
+\define[3]\doChapterTOC{\hskip\dimexpr \gujiparameter{文字大小}*3 \relax#2}
 
 
 
@@ -410,13 +664,20 @@ StopPage ;
 
 \bgroup
 \catcode`|=13
+\catcode`@=13
 \gdef|{\csname 夾注\endcsname}
+\gdef@[#1]{\csname 本紀\endcsname{#1}}
 \egroup
 
 
 \appendtoks
   \setbox\scratchbox=\vsplit\normalpagebox to .5\textheight
-  \global\setbox\normalpagebox=\vbox{\unvbox\scratchbox\vskip\gujiparameter{版芯寬度}\unvbox\normalpagebox}%
+  \global\setbox\normalpagebox=\vbox
+    \bgroup
+    \unvbox\scratchbox
+    \vskip\gujiparameter{版芯寬度}%
+    \unvbox\normalpagebox
+    \egroup
 \to \everybeforeoutput
 
 

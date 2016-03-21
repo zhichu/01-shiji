@@ -40,7 +40,7 @@ pdf.setobjcompresslevel(0)
 \installcommandhandler \????guji {guji} \????guji
 
 \setupguji
-  [古籍=史記%
+  [書名=史記%
   ,文字大小=27pt%
   ,基線深度=0.12% Adobe Song Std: .12
   ,版芯寬度=\the\dimexpr\baselineskip\relax
@@ -326,7 +326,6 @@ pdf.setobjcompresslevel(0)
 
 \setuppapersize[竹簡,rotated,270][整頁]
 
-\setuppagenumbering[location=]
 
 % \setupinterlinespace[line=1.45em]
 
@@ -340,7 +339,7 @@ pdf.setobjcompresslevel(0)
   ,backspace=\dimexpr \gujiparameter{文字大小}*7 \relax
   ,topspace=\the\baselineskip
   ,grid=min%
-  ,marking=color%
+  ,marking=on%
   ,lines=\gujiparameter{每版列數}%
   ]
 
@@ -348,135 +347,40 @@ pdf.setobjcompresslevel(0)
 
 \definecolor[red][r=1]
 \definecolor[trwhite][s=1, t=.5, a=1]
+% \definecolor[golden][c=0,y=1,m=.6,k=0]
+\definecolor[golden][.875(orange)]
+\definecolor[dark]  [s=.5, t=.5, a=0]
 \setupbackgrounds[state=repeat]
 \defineoverlay[frame][\uniqueMPgraphic{\gujiparameter{樣式}}]
 \defineoverlay[pageno][\useMPgraphic{\gujiparameter{頁碼}}]
 
 \setupbackgrounds[page][background={frame,pageno}]
 
-\definelayer[pagenumber][width=\textwidth,height=\textheight]
-
-\startsetups[pagenumber]
- \setlayer
-   [pagenumber]
-   [preset=lefttop%
-   ,x=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數}*2/3 \relax
-%    ,y=\the\dimexpr \gujiparameter{每頁列數}\baselineskip + \gujiparameter{版芯寬度}/2 - (\gujiparameter{文字大小}*\gujiparameter{正文字體寬}+\strutdp-\strutht)/2 \relax
-   ,y=\the\dimexpr (\gujiparameter{文字大小}*\gujiparameter{正文字體寬}+\strutdp-\strutht)/(-2) \relax
-   ]{\ssxx \vtop{\chinesenumerals{\userpagenumber}}}
-\stopsetups
 
 
-% \setuppagenumbering[state=none]
-
-% \setupbackgrounds[text][text][background=pagenumber,setups=pagenumber]
-
-
-
-
-
-\setupMPvariables
-  [框線]
-  [baseline=\the\baselineskip
-  ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
-  ,corewd=\gujiparameter{版芯寬度}%
-  ]
-
-\setupMPvariables
-  [單頁頁碼]
-  [baseline=\the\baselineskip
-  ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
-  ,corewd=\gujiparameter{版芯寬度}%
-  ]
-
-\setupMPvariables
-  [雙頁頁碼]
-  [baseline=\the\baselineskip
-  ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
-  ,corewd=\gujiparameter{版芯寬度}%
-  ]
-
-\setupMPvariables
-  [烏絲欄]
-  [baseline=\the\baselineskip
-  ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
-  ,corewd=\gujiparameter{版芯寬度}%
-  ]
-
-\setupMPvariables
-  [金絲欄]
-  [baseline=\the\baselineskip
-  ,lines=\gujiparameter{每頁列數}%
-  ,chwd=\the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
-  ,corewd=\gujiparameter{版芯寬度}%
-  ]
-
-
-
-\startuniqueMPgraphic{烏絲欄}{baseline,lines,chwd,corewd}
-StartPage ;
-path p[] ;
-numeric l, n, wd, ht, dp, dw, D ;
-
-l := \MPvar{baseline} ;
-n := \MPvar{lines} ;
-wd := \MPvar{chwd} ;
-D := \MPvar{corewd} ;
-ht := StrutHeight ;
-dp := StrutDepth ;
-dw := (wd+dp-ht)/2 ;
-
-% top left corner
-z1 = Location[Text][Text] + (0,TextHeight) ;
-% bottom left corner
-z2 = z1 + (0,-2n*l-D) ;
-% z2 = Location[Text][Text] + (0,-D) ;
-% center right
-z3 = .5[z1,z2] + (.7TextWidth,dw) ;
-
-p0 := origin shifted (0,dw) -- origin shifted (TextWidth,dw) ;
-p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
-p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
-p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
-
-drawoptions (withcolor .125white) ;
-
-for i=1 upto n :
-  draw p1 shifted (z1+(0,-i*l)) ;
-  draw p2 shifted (z2+(0, i*l)) ;
-endfor
-
-draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
-StopPage ;
-\stopuniqueMPgraphic
-
-
-\startuniqueMPgraphic{金絲欄}{baseline,lines,chwd,corewd}
-StartPage ;
+\startMPinitializations
 path p[] ;
 numeric l, n, wd, ht, dp, dw, m ;
 pair WD, L, D, H;
 
-l := \MPvar{baseline} ;
-n := \MPvar{lines} ;
-wd := \MPvar{chwd} ;
-m := \MPvar{corewd} ;
+l := \the\baselineskip ;
+n := \gujiparameter{每頁列數} ;
+wd := \the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax ;
+m := \gujiparameter{版芯寬度} ;
 ht := StrutHeight ;
 dp := StrutDepth ;
 dw := (wd+dp-ht)/2 ;
 
-% top left corner
+% 右上角
 z1 = Location[Text][Text] + (0,TextHeight+dw) ;
-% bottom left corner
+% 左上角
 z2 = z1 + (0,-2n*l-m) ;
 % unit length
-WD = (wd,0) ; L = (TextWidth,0) ;
+WD = (wd,0) ;
+L = (TextWidth,0) ;
 % unit width
-D = (0,m) ; H = (0,TextHeight) ;
+D = (0,m) ;
+H = (0,TextHeight) ;
 
 z0 = .5[z1,z2] ;
 
@@ -488,10 +392,10 @@ p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
 p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
 
 p4 := origin -- origin shifted (0,y2-y1) ;
-p5 := p4 -- reverse p4 shifted L -- cycle ;
+p5 := p4 -- reverse p4 shifted L -- cycle ; % p5 =?= p3
 
 
-
+% 魚尾
 z10 = z0 + 5WD ; z20 + z10 = 2z0 + L ;
 
 z11 - z12 = D ;
@@ -502,47 +406,74 @@ z15 = z11 + .5WD ;
 
 p6 := for i=11 upto 15 : z[i] -- endfor cycle ;
 
-drawoptions (withcolor .875\MPcolor{orange}) ;
 
-% for i=1 upto n :
-%   draw p1 shifted (z1+(0,-i*l)) ;
-%   draw p2 shifted (z2+(0, i*l)) ;
-% endfor
+% 象鼻
+z100 = z10 - .3WD ; z200 + z100 = 2z0 + L ;
 
+z101 - z102 = D ;
+.5[z101,z102] = origin ;
+
+p7 := z101 -- z102 ;
+p8 := origin -- (z0-z100) ;
+\stopMPinitializations
+
+
+\startuniqueMPgraphic{烏絲欄}
+StartPage ;
+
+% 烏絲
+% drawoptions (withpen pensquare scaled 1pt withcolor .875\MPcolor{orange}) ;
+drawoptions (withpen pensquare scaled 1pt withcolor .5white) ;
+
+% 欄框
 draw p5 shifted z1 ;
-
 for i=1 upto n :
   draw p0 shifted (z1+(0,-i*l)) ;
   draw p0 shifted (z2+(0, i*l)) ;
 endfor
+draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
 
+% 魚尾
 fill p6 shifted z10;
 fill p6 rotated 180 shifted z20 ;
 
-draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
+% 象鼻
+draw p7 shifted z100 ; draw p7 rotated 180 shifted z200 ;
+draw p8 shifted z100 ; draw p8 rotated 180 shifted z200 ;
 StopPage ;
 \stopuniqueMPgraphic
 
 
-\startuseMPgraphic{雙頁頁碼}{baseline,lines,chwd,corewd}
+\startuniqueMPgraphic{金絲欄}
 StartPage ;
-numeric l, n, wd, ht, dp, dw, D ;
 
-l := \MPvar{baseline} ;
-n := \MPvar{lines} ;
-wd := \MPvar{chwd} ;
-D := \MPvar{corewd} ;
-ht := StrutHeight ;
-dp := StrutDepth ;
-dw := (wd+dp-ht)/2 ;
+% 金絲
+% drawoptions (withpen pensquare scaled 1pt withcolor .875\MPcolor{orange}) ;
+drawoptions (withpen pensquare scaled 1pt withcolor \MPcolor{golden}) ;
+% drawoptions (withpen pensquare scaled 1pt withcolor .5white) ;
 
-% top left corner
-z1 = Location[Text][Text] + (0,TextHeight) ;
-% bottom left corner
-z2 = z1 + (0,-2n*l-D) ;
-% z2 = Location[Text][Text] + (0,-D) ;
-% center right
-z3 = .5[z1,z2] + (.7TextWidth,dw) ;
+% 欄框
+draw p5 shifted z1 ;
+for i=1 upto n :
+  draw p0 shifted (z1+(0,-i*l)) ;
+  draw p0 shifted (z2+(0, i*l)) ;
+endfor
+draw p3 enlarged 6pt withpen pensquare scaled 4pt ;
+
+% 魚尾
+fill p6 shifted z10;
+fill p6 rotated 180 shifted z20 ;
+
+% 象鼻
+draw p7 shifted z100 ; draw p7 rotated 180 shifted z200 ;
+draw p8 shifted z100 ; draw p8 rotated 180 shifted z200 ;
+
+StopPage ;
+\stopuniqueMPgraphic
+
+
+\startuseMPgraphic{雙頁頁碼}
+StartPage ;
 
 
 label.ulft(textext("\ssxx \chinesenumerals{\the\numexpr2*\pageno-1\relax}"),z3) ;
@@ -551,74 +482,103 @@ StopPage ;
 \stopuseMPgraphic
 
 
-\startuseMPgraphic{單頁頁碼}{baseline,lines,chwd,corewd}
+\startuseMPgraphic{單頁頁碼}
 StartPage ;
-path p[] ;
-numeric l, n, wd, ht, dp, dw, m ;
-pair WD, L, D, H;
-
-l := \MPvar{baseline} ;
-n := \MPvar{lines} ;
-wd := \MPvar{chwd} ;
-m := \MPvar{corewd} ;
-ht := StrutHeight ;
-dp := StrutDepth ;
-dw := (wd+dp-ht)/2 ;
-
-% top left corner
-z1 = Location[Text][Text] + (0,TextHeight+dw) ;
-% bottom left corner
-z2 = z1 + (0,-2n*l-m) ;
-% unit length
-WD = (wd,0) ; L = (TextWidth,0) ;
-% unit width
-D = (0,m) ; H = (0,TextHeight) ;
-
-z0 = .5[z1,z2] ;
-
-
-
-p0 := origin -- origin shifted L ;
-p1 := p0 -- reverse p0 shifted (0, l) -- cycle ;
-p2 := p0 shifted (0,-l) -- reverse p0 -- cycle ;
-p3 := p0 shifted z1 -- reverse p0 shifted z2 -- cycle ;
-
-p4 := origin -- origin shifted (0,y2-y1) ;
-p5 := p4 -- reverse p4 shifted L -- cycle ;
-
-
-
-z10 = z0 + 5WD ; z20 + z10 = 2z0 + L ;
-
-
-label.rt(textext("\ssxx \gujiparameter{古籍}\getmarking[chapter][first]"),z10) ;
-label.lft(textext("\ssxx \chinesenumerals{\the\pageno}"),z20) ;
+label.lrt(textext("\ssxx \framed[frame=on,topframe=off,rulethickness=2pt,framecolor=golden,offset=none]{\earmarking}"),z2+(-6pt,-6pt)) ;
+label.rt(textext("\ssxx \coremarking"),z10) ;
+label.lft(textext("\ssxx \userpagenumber"),z20) ;
 StopPage ;
 \stopuseMPgraphic
 
 
 
+\setupheadtext[content=目錄]
 
-\setupheadtext[content=史記目錄]
+\defineconversion [guji]                   [\chinesenumerals]
 
-\def\gujichapter{第\chinesenumerals}
-\defineconversion [guji]                   [\gujichapter]
+\definelistalternative
+   [古籍:紀傳]
+   [renderingsetup=古籍:紀傳]
+\definelistalternative
+   [古籍:卷]
+   [renderingsetup=古籍:卷]
 
-\setuphead[part]
-  [style=normal%
+% \startsetups[guji:1]
+%      \listparameter{before}
+%      \vbox \listboxproperties{all} {
+%          \forgetall
+%          \dontleavehmode
+%          \listrenderingsynchronize
+%          \bgroup
+%              \useliststyleandcolor{pagestyle}{pagecolor}
+%              \currentlistentrypagenumber
+%          \egroup
+%          \hskip3em
+%          \bgroup
+%              \useliststyleandcolor{numberstyle}{numbercolor}
+%              \currentlistsymbol
+%          \egroup
+%          .\space
+%          \bgroup
+%              \useliststyleandcolor{textstyle}{textcolor}
+%              \currentlistentrytitle
+%          \egroup
+%          \par
+%      }
+%      \par
+%      \listparameter{after}
+% \stopsetups
+
+\startsetups[古籍:紀傳]
+     \vbox \listboxproperties{all} {
+         \forgetall
+         \dontleavehmode
+         \listrenderingsynchronize
+         \hskip\dimexpr \gujiparameter{文字大小}*3 \relax
+         \bgroup
+             \useliststyleandcolor{textstyle}{textcolor}
+             \currentlistentrytitle
+         \egroup
+         \par
+     }
+     \par
+\stopsetups
+
+\startsetups[古籍:卷]
+     \vbox \listboxproperties{all} {
+         \forgetall
+         \dontleavehmode
+         \listrenderingsynchronize
+         \hskip\dimexpr \gujiparameter{文字大小}*2 \relax
+         \bgroup
+             \useliststyleandcolor{textstyle}{textcolor}
+             \currentlistentrytitle
+         \egroup
+         \par
+     }
+     \par
+\stopsetups
+
+
+
+% \starttexdefinition part #1
+% \xdef\partname     {#1}%
+% \xdef\shortpartname{#1}%
+% \stoptexdefinition
+
+\setuphead
+  [part]
+  [placehead=empty%
+  ,style=normal%
   ,textstyle=normal%
   ,numberstyle=normal%
-  ,number=yes%
-  ,continue=yes%
-  ,alternative=command%
-  ,hang=line%
-  ,conversion=guji%
+  ,number=no%
   ,before=%
   ,after=%
-  ,command=\gobbletwoargument%
   ]
 
-\setuphead[chapter]
+\setuphead
+  [chapter]
   [style=normal%
   ,textstyle=normal%
   ,numberstyle=normal%
@@ -630,30 +590,113 @@ StopPage ;
   ,conversion=guji%
   ,before=%
   ,after=%
+  ,prefix=%
+  ,sectionsegments=chapter%
   ,command=\doChapter%
   ]
 
-\define[2]\doChapter{#2#1}
-
-\definehead[本紀][chapter][style=,before=,after=]
-\definehead[列傳][chapter][style=,before=,after=]
-\definehead[世家][chapter][style=,before=,after=]
-
-\setuplist
-  [chapter]
-  [alternative=command%
-  ,command=\doChapterTOC
+\setuphead
+  [title]
+  [style=normal%
+  ,textstyle=normal%
+  ,numberstyle=normal%
+  ,number=yes%
+  ,page=right%
+  ,continue=yes%
+  ,marking=on%
+  ,alternative=command%
+  ,hang=line%
+  ,conversion=guji%
+  ,before=%
+  ,after=%
+  ,command=\doTitle%
   ]
+
+
+\define[2]\doChapter{#2\chaptercatagory 第#1}
+\define[2]\doTitle{\gujiparameter{書名}#2}
+
+% \definehead[本紀][chapter][style=,before=,after=]
+% \definehead[列傳][chapter][style=,before=,after=]
+% \definehead[世家][chapter][style=,before=,after=]
+
 \setuplist
   [part]
-  [alternative=command%
-  ,command=\doPartTOC
+  [alternative=古籍:卷%
+  ]
+\setuplist
+  [chapter]
+  [alternative=古籍:紀傳%
   ]
 
-\define[3]\doPartTOC{\hskip\dimexpr \gujiparameter{文字大小}*2 \relax#2}
-\define[3]\doChapterTOC{\hskip\dimexpr \gujiparameter{文字大小}*3 \relax#2}
+\definecombinedlist
+  [content]
+  [chapter]
 
 
+
+
+
+
+
+
+
+
+
+\setuppagenumbering[location=]
+
+\setupcounter[userpage][numberconversionset=pagenumber]
+
+\defineconversionset [目錄:pagenumber][][guji]
+\defineconversionset [本紀:pagenumber][][guji]
+\defineconversionset [年表:pagenumber][][guji]
+\defineconversionset [書:pagenumber][][guji]
+\defineconversionset [世家:pagenumber][][guji]
+\defineconversionset [列傳:pagenumber][][guji]
+
+\definesectionblock  [目錄][mulu]
+\definesectionblock  [本紀][benji]
+\definesectionblock  [年表][nianbiao]
+\definesectionblock  [書][shu]
+\definesectionblock  [世家][shijia]
+\definesectionblock  [列傳][liezhuan]
+
+\startsectionblockenvironment[目錄]
+\setcounter[userpage][1]
+\def\coremarking{\gujiparameter{書名}目}
+\def\earmarking{目錄}
+\stopsectionblockenvironment
+
+
+\startsectionblockenvironment[本紀]
+\def\chaptercatagory{本紀}
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}
+\def\earmarking{\getmarking[chapter][first]紀}
+\stopsectionblockenvironment
+
+\startsectionblockenvironment[年表]
+\def\chaptercatagory{年表}
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表}
+\def\earmarking{\getmarking[chapter][first]表}
+\stopsectionblockenvironment
+
+\startsectionblockenvironment[書]
+\def\chaptercatagory{書}
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書}
+\def\earmarking{\getmarking[chapter][first]書}
+\stopsectionblockenvironment
+
+\startsectionblockenvironment[世家]
+\def\chaptercatagory{世家}
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家}
+\def\earmarking{\getmarking[chapter][first]世家}
+\stopsectionblockenvironment
+
+\startsectionblockenvironment[列傳]
+\def\chaptercatagory{列傳}
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳}
+\def\earmarking{\getmarking[chapter][first]傳}
+\stopsectionblockenvironment
 
 
 

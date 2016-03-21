@@ -613,7 +613,7 @@ StopPage ;
   ]
 
 
-\define[2]\doChapter{#2\chaptercatagory 第#1}
+\define[2]\doChapter{\hbox to10em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
 \define[2]\doTitle{\gujiparameter{書名}#2}
 
 % \definehead[本紀][chapter][style=,before=,after=]

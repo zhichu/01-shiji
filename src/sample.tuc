@@ -1,0 +1,547 @@
+local utilitydata = { }
+
+utilitydata.comment={
+ ["escape"]="[===[ ... ]===]",
+ ["file"]="tex.jobname",
+ ["format"]="cont-en",
+ ["stamp"]="2016.03.13 23:40",
+ ["version"]=1.3,
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.variables then utilitydata.job.variables = { } end
+
+utilitydata.job.variables.checksums={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.variables then utilitydata.job.variables = { } end
+
+utilitydata.job.variables.collected={
+ ["macros"]={},
+ ["randomseed"]=0.46142893821071,
+ ["sectionblockorder"]={ "目錄", "本紀", "年表", "書", "世家", "列傳" },
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.structure then utilitydata.job.structure = { } end
+
+utilitydata.job.structure.collected={
+ ["branches"]={},
+ ["name"]="sample",
+ ["type"]="text",
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.positions then utilitydata.job.positions = { } end
+
+utilitydata.job.positions.collected={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.passes then utilitydata.job.passes = { } end
+
+utilitydata.job.passes.collected={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.datasets then utilitydata.job.datasets = { } end
+
+utilitydata.job.datasets.collected={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.pagestates then utilitydata.job.pagestates = { } end
+
+utilitydata.job.pagestates.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.specials then utilitydata.structures.specials = { } end
+
+utilitydata.structures.specials.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.counters then utilitydata.structures.counters = { } end
+
+utilitydata.structures.counters.collected={
+ ["chemical"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["combination"]={
+  { 0 },
+ },
+ ["endnote"]={
+  { 0 },
+ },
+ ["figure"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["footnote"]={
+  { 0 },
+ },
+ ["formula"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["graphic"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["intermezzo"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["itemgroup:itemize"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["linenote"]={
+  { 0 },
+ },
+ ["paragraph"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["realpage"]={
+  { 25 },
+ },
+ ["subpage"]={
+  { 0 },
+ },
+ ["table"]={
+  { 0, 0, 0, 0, 0, 0, 0 },
+ },
+ ["userpage"]={
+  { 25 },
+ },
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.lists then utilitydata.structures.lists = { } end
+
+utilitydata.structures.lists.collected={
+ {
+  ["metadata"]=1,
+  ["numberdata"]=3,
+  ["references"]={
+   ["block"]="目錄",
+   ["internal"]=1,
+   ["realpage"]=1,
+   ["reference"]="content",
+   ["section"]=0,
+  },
+  ["titledata"]={
+   ["title"]="\\headtext {content}",
+  },
+ },
+ {
+  ["metadata"]=4,
+  ["numberdata"]=6,
+  ["references"]={
+   ["block"]="本紀",
+   ["internal"]=2,
+   ["realpage"]=2,
+   ["section"]=1,
+  },
+  ["titledata"]={
+   ["title"]="五帝",
+  },
+ },
+ {
+  ["metadata"]=4,
+  ["numberdata"]=8,
+  ["references"]={
+   ["block"]="本紀",
+   ["internal"]=3,
+   ["realpage"]=22,
+   ["section"]=2,
+  },
+  ["titledata"]={
+   ["title"]="夏",
+  },
+ },
+ {
+  ["metadata"]=4,
+  ["numberdata"]=10,
+  ["references"]={
+   ["block"]="本紀",
+   ["internal"]=4,
+   ["realpage"]=23,
+   ["section"]=3,
+  },
+  ["titledata"]={
+   ["title"]="殷",
+  },
+ },
+ {
+  ["metadata"]=4,
+  ["numberdata"]=12,
+  ["references"]={
+   ["block"]="本紀",
+   ["internal"]=5,
+   ["realpage"]=24,
+   ["section"]=4,
+  },
+  ["titledata"]={
+   ["title"]="周",
+  },
+ },
+ {
+  ["metadata"]=4,
+  ["numberdata"]=14,
+  ["references"]={
+   ["block"]="本紀",
+   ["internal"]=6,
+   ["realpage"]=25,
+   ["section"]=5,
+  },
+  ["titledata"]={
+   ["title"]="秦",
+  },
+ },
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.pages then utilitydata.structures.pages = { } end
+
+utilitydata.structures.pages.collected={
+ {
+  ["block"]="目錄",
+  ["number"]=1,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=2,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=3,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=4,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=5,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=6,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=7,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=8,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=9,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=10,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=11,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=12,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=13,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=14,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=15,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=16,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=17,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=18,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=19,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=20,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=21,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=22,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=23,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=24,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+ {
+  ["block"]="本紀",
+  ["number"]=25,
+  ["numberdata"]=15,
+  ["prefixdata"]=16,
+  ["state"]="start",
+ },
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.references then utilitydata.structures.references = { } end
+
+utilitydata.structures.references.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.references then utilitydata.structures.references = { } end
+
+utilitydata.structures.references.referred={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.objects then utilitydata.job.objects = { } end
+
+utilitydata.job.objects.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.synonyms then utilitydata.structures.synonyms = { } end
+
+utilitydata.structures.synonyms.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.registers then utilitydata.structures.registers = { } end
+
+utilitydata.structures.registers.collected={
+}
+
+if not utilitydata.structures then utilitydata.structures = { } end
+if not utilitydata.structures.blocks then utilitydata.structures.blocks = { } end
+
+utilitydata.structures.blocks.collected={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.files then utilitydata.job.files = { } end
+
+utilitydata.job.files.collected={
+}
+
+if not utilitydata.publications then utilitydata.publications = { } end
+
+utilitydata.publications.collected={
+}
+
+if not utilitydata.job then utilitydata.job = { } end
+if not utilitydata.job.fileobjreferences then utilitydata.job.fileobjreferences = { } end
+
+utilitydata.job.fileobjreferences.collected={
+}
+
+utilitydata.job.packed={
+ ["index"]={
+  {
+   ["catcodes"]=8,
+   ["coding"]="tex",
+   ["kind"]="section",
+   ["level"]=2,
+   ["name"]="title",
+   ["nolist"]=true,
+  },
+  { 0, 0 },
+  {
+   ["block"]="目錄",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["hidenumber"]=true,
+   ["language"]="en",
+   ["numbers"]=2,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  {
+   ["catcodes"]=8,
+   ["coding"]="tex",
+   ["increment"]="yes",
+   ["kind"]="section",
+   ["level"]=2,
+   ["name"]="chapter",
+  },
+  { 0, 1 },
+  {
+   ["block"]="本紀",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["language"]="en",
+   ["numbers"]=5,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  { 0, 2 },
+  {
+   ["block"]="本紀",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["language"]="en",
+   ["numbers"]=7,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  { 0, 3 },
+  {
+   ["block"]="本紀",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["language"]="en",
+   ["numbers"]=9,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  { 0, 4 },
+  {
+   ["block"]="本紀",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["language"]="en",
+   ["numbers"]=11,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  { 0, 5 },
+  {
+   ["block"]="本紀",
+   ["conversion"]="guji",
+   ["conversionset"]="default",
+   ["language"]="en",
+   ["numbers"]=13,
+   ["segments"]="chapter",
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  {
+   ["conversionset"]="pagenumber",
+  },
+  {
+   ["connector"]="–",
+   ["prefix"]="no",
+   ["set"]="part",
+  },
+ },
+ ["keys"]={
+  ["directives"]=true,
+  ["metadata"]=true,
+  ["numberdata"]=true,
+  ["numbers"]=true,
+  ["pagedata"]=true,
+  ["prefixdata"]=true,
+  ["processors"]=true,
+  ["sectiondata"]=true,
+  ["specification"]=true,
+ },
+ ["skip"]={
+  ["datasets"]=true,
+  ["userdata"]=true,
+ },
+ ["version"]=1.02,
+}
+
+return utilitydata

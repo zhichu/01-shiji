@@ -94,7 +94,7 @@ used file       >    6: filename=p-guji.mkvi foundname=p-guji.mkvi usedmethod=di
 used file       >    7: filename=guji.lua format=tex foundname=guji.lua usedmethod=direct
 used file       >    8: filename=texgyre.lfg filetype=tex foundname=/opt/context/tex/texmf-context/tex/context/fonts/mkiv/texgyre.lfg usedmethod=otherwise
 used file       >    9: filename=texgyretermes-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyretermes-regular.otf usedmethod=database
-used file       >   10: filename=AdobeSongStd-Light.otf filetype=otf format=otf foundname=/opt/context/tex/texmf-fonts/fonts/opentype/Adobe/AdobeSongStd-Light.otf usedmethod=database
+used file       >   10: filename=AdobeFangsongStd-Regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf-fonts/fonts/opentype/Adobe/AdobeFangsongStd-Regular.otf usedmethod=database
 used file       >   11: filename=texgyretermes-math.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre-math/texgyretermes-math.otf usedmethod=database
 used file       >   12: filename=metafun.mpiv filetype=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/metafun.mpiv usedmethod=database
 used file       >   13: filename=mp-base.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-base.mpiv usedmethod=database
@@ -110,27 +110,26 @@ used file       >   22: filename=mp-form.mpiv filetype=mp format=mp foundname=/o
 used file       >   23: filename=mp-figs.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-figs.mpiv usedmethod=database
 used file       >   24: filename=mp-func.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-func.mpiv usedmethod=database
 used file       >   25: filename=texgyreheros-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf usedmethod=database
-used file       >   26: filename=AdobeFangsongStd-Regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf-fonts/fonts/opentype/Adobe/AdobeFangsongStd-Regular.otf usedmethod=database
-used file       >   27: filename=mp-crop.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-crop.mpiv usedmethod=database
-used file       >   28: filename=dejavusansmono filetype=ttf format=ttf foundname=/opt/context/tex/texmf/fonts/truetype/public/dejavu/DejaVuSansMono.ttf usedmethod=database
-used file       >   29: filename=lpdf-pdx.xml filetype=tex foundname=/opt/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml usedmethod=otherwise
-used file       >   30: filename=Annals/Vol01/scroll000.tex foundname=Annals/Vol01/scroll000.tex usedmethod=direct
-used file       >   31: filename=texgyrecursor-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-regular.otf usedmethod=database
-used file       >   32: filename=Annals/Vol01/scroll001.tex foundname=Annals/Vol01/scroll001.tex usedmethod=direct
-used file       >   33: filename=Annals/Vol01/scroll002.tex foundname=Annals/Vol01/scroll002.tex usedmethod=direct
-used file       >   34: filename=Annals/Vol01/scroll003.tex foundname=Annals/Vol01/scroll003.tex usedmethod=direct
-used file       >   35: filename=Annals/Vol01/scroll004.tex foundname=Annals/Vol01/scroll004.tex usedmethod=direct
+used file       >   26: filename=mp-crop.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-crop.mpiv usedmethod=database
+used file       >   27: filename=dejavusansmono filetype=ttf format=ttf foundname=/opt/context/tex/texmf/fonts/truetype/public/dejavu/DejaVuSansMono.ttf usedmethod=database
+used file       >   28: filename=lpdf-pdx.xml filetype=tex foundname=/opt/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml usedmethod=otherwise
+used file       >   29: filename=Annals/Vol01/scroll000.tex foundname=Annals/Vol01/scroll000.tex usedmethod=direct
+used file       >   30: filename=texgyrecursor-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-regular.otf usedmethod=database
+used file       >   31: filename=Annals/Vol01/scroll001.tex foundname=Annals/Vol01/scroll001.tex usedmethod=direct
+used file       >   32: filename=Annals/Vol01/scroll002.tex foundname=Annals/Vol01/scroll002.tex usedmethod=direct
+used file       >   33: filename=Annals/Vol01/scroll003.tex foundname=Annals/Vol01/scroll003.tex usedmethod=direct
+used file       >   34: filename=Annals/Vol01/scroll004.tex foundname=Annals/Vol01/scroll004.tex usedmethod=direct
 
 system          > files > stop used files
 
 
 system          > options > start commandline options
 
-used option     > currentrun="3"
+used option     > currentrun="1"
 used option     > engine="luajittex"
 used option     > fulljobname="./sample.mkiv"
 used option     > input="./sample.mkiv"
-used option     > kindofrun="2"
+used option     > kindofrun="1"
 used option     > maxnofruns="9"
 used option     > no-parse-first-line="true"
 
@@ -145,28 +144,28 @@ system          > options > stop commandline files
 
 mkiv lua stats  > used config file: selfautoparent:/texmf/web2c/texmfcnf.lua
 mkiv lua stats  > used cache path: /opt/context/tex/texmf-cache/luatex-cache/context/5fe67e0bfe781ce0dde776fb1556f32e
-mkiv lua stats  > resource resolver: loadtime 0.015 seconds, 0 scans with scantime 0.000 seconds, 0 shared scans, 35 found files, scanned paths: <none>
-mkiv lua stats  > stored bytecode data: 385 modules (0.178 sec), 81 tables (0.008 sec), 466 chunks (0.186 sec)
+mkiv lua stats  > resource resolver: loadtime 0.015 seconds, 0 scans with scantime 0.000 seconds, 0 shared scans, 34 found files, scanned paths: <none>
+mkiv lua stats  > stored bytecode data: 385 modules (0.175 sec), 81 tables (0.008 sec), 466 chunks (0.184 sec)
 mkiv lua stats  > traced context: maxstack: 1171, freed: 9, unreachable: 1162
 mkiv lua stats  > cleaned up reserved nodes: 51 nodes, 10 lists of 448
 mkiv lua stats  > node memory usage: 11 glue, 12 penalty, 1505 attribute, 802 glue_spec, 260 attribute_list, 2 temp
-mkiv lua stats  > node list callback tasks: 6 unique task lists, 5 instances (re)created, 7297 calls
-mkiv lua stats  > h-node processing time: 0.033 seconds including kernel
+mkiv lua stats  > node list callback tasks: 6 unique task lists, 5 instances (re)created, 6897 calls
+mkiv lua stats  > h-node processing time: 0.042 seconds including kernel
 mkiv lua stats  > attribute processing time: 0.015 seconds front- and backend
 mkiv lua stats  > used backend: pdf (backend for directly generating pdf output)
 mkiv lua stats  > jobdata time: 0.001 seconds saving, 0.001 seconds loading
-mkiv lua stats  > callbacks: 12054 direct, 2634 indirect, 14688 total
+mkiv lua stats  > callbacks: 10777 direct, 2641 indirect, 13418 total
 mkiv lua stats  > randomizer: resumed with value 0.46142893821071
-mkiv lua stats  > v-node processing time: 0.024 seconds 
+mkiv lua stats  > v-node processing time: 0.021 seconds 
 mkiv lua stats  > loaded tex modules: 1 requested, all found (p-guji)
 mkiv lua stats  > loaded patterns: en::2, load time: 0.000
 mkiv lua stats  > result saved in file: sample.pdf, compresslevel 0, objectcompresslevel 0
-mkiv lua stats  > loaded fonts: 7 files: adobefangsongstd-regular.otf, adobesongstd-light.otf, texgyretermes-math.otf, texgyrecursor-regular.otf, texgyreheros-regular.otf, texgyretermes-regular.otf, dejavusansmono.ttf
-mkiv lua stats  > font engine: otf 3.015, afm 1.500, tfm 1.000, 12 instances, 3 shared in backend, 1 common vectors, 2 common hashes, load time 1.729 seconds 
-mkiv lua stats  > metapost processing time: 0.129 seconds, loading: 0.016, execution: 0.112, n: 53, average: 0.005, instances: 1, memory: 2.350 M
+mkiv lua stats  > loaded fonts: 6 files: adobefangsongstd-regular.otf, texgyretermes-math.otf, texgyrecursor-regular.otf, texgyreheros-regular.otf, texgyretermes-regular.otf, dejavusansmono.ttf
+mkiv lua stats  > font engine: otf 3.015, afm 1.500, tfm 1.000, 12 instances, 4 shared in backend, 2 common vectors, 2 common hashes, load time 1.702 seconds 
+mkiv lua stats  > metapost processing time: 0.135 seconds, loading: 0.016, execution: 0.117, n: 53, average: 0.005, instances: 1, memory: 2.350 M
 mkiv lua stats  > used platform: linux-64, type: unix, binary subtree: texmf-linux-64
 mkiv lua stats  > luatex banner: this is luajittex, version beta-0.89.4 (tex live 2016/dev)
-mkiv lua stats  > control sequences: 44482 of 65536 + 100000
-mkiv lua stats  > lua properties: engine: luajit, used memory: 166 MB (ctx: 0 MB), hash type: lua51, hash chars: min(64,40), symbol mask: utf (τεχ)
-mkiv lua stats  > runtime: 2.838 seconds, 25 processed pages, 25 shipped pages, 8.809 pages/second
+mkiv lua stats  > control sequences: 44474 of 65536 + 100000
+mkiv lua stats  > lua properties: engine: luajit, used memory: 157 MB (ctx: 0 MB), hash type: lua51, hash chars: min(64,40), symbol mask: utf (τεχ)
+mkiv lua stats  > runtime: 2.757 seconds, 25 processed pages, 25 shipped pages, 9.068 pages/second
 

@@ -43,7 +43,7 @@ pdf.setobjcompresslevel(0)
   [書名=史記%
   ,文字大小=27pt%
   ,基線深度=0.12% Adobe Song Std: .12
-  ,版芯寬度=\the\dimexpr\baselineskip\relax
+  ,版芯寬度=\the \dimexpr \baselineskip \relax
   ,每頁列數=10%
   ,每版列數=20%
   ,每列字數=22%
@@ -101,8 +101,8 @@ pdf.setobjcompresslevel(0)
 
 
 
-% \definefallbackfamily [mainface] [serif] [Adobe Fangsong Std]
-\definefallbackfamily [mainface] [serif] [Adobe Song Std]
+\definefallbackfamily [mainface] [serif] [Adobe Fangsong Std]
+% \definefallbackfamily [mainface] [serif] [Adobe Song Std]
   [range={0x00400-0x2FA1F}%
   ,force=yes%
   ,features=zhengwen%
@@ -186,8 +186,7 @@ pdf.setobjcompresslevel(0)
 \newbox   \currentjiazhu
 \newbox   \lastjiazhu
 \newbox   \lastjian
-% \newdimen \zhengwenwidth \zhengwenwidth\dimexpr \gujiparameter{文字大小}*\gujiparameter{文字大小} \relax
-\newdimen \jiazhuindent  \jiazhuindent\dimexpr \gujiparameter{文字大小}*2 \relax
+\newdimen \jiazhuindent  \jiazhuindent \dimexpr \gujiparameter{文字大小}*2 \relax
 \newdimen \jianheight
 \newdimen \lastjianheight
 \newdimen \firstjiazhuheight
@@ -208,7 +207,7 @@ pdf.setobjcompresslevel(0)
     \abovedisplayshortskip\abovedisplayskip
     \belowdisplayshortskip\belowdisplayskip
     $$
-        \global\lastjianheight\dimexpr\predisplaysize-2em\relax
+        \global \lastjianheight \dimexpr \predisplaysize-2em \relax
     $$
 %D restore the \prevgraf counter
     \saveprevgraf\prevgraf
@@ -233,9 +232,9 @@ pdf.setobjcompresslevel(0)
     \bgroup
 %       \offinterlineskip
       \ifdim\firstjiazhuheight<1em
-        \parshape 1 \!!zeropoint\dimexpr 2\jianheight \relax
+        \parshape 1 \!!zeropoint \dimexpr 2\jianheight \relax
       \else
-        \parshape 2 \!!zeropoint\dimexpr 2\firstjiazhuheight \relax \!!zeropoint\dimexpr 2\jianheight \relax
+        \parshape 2 \!!zeropoint \dimexpr 2\firstjiazhuheight \relax \!!zeropoint \dimexpr 2\jianheight \relax
       \fi
       \tt #注\par
     \egroup
@@ -252,7 +251,7 @@ pdf.setobjcompresslevel(0)
         }%
       \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
       \setbox\scratchbox=\vbox{%
-        \hsize=\dimexpr\wd\scratchbox/2\relax
+        \hsize=\dimexpr \wd\scratchbox/2 \relax
         \unhbox\scratchbox\par
         \setbox2\lastbox
         \unskip\unpenalty\unskip
@@ -319,9 +318,14 @@ pdf.setobjcompresslevel(0)
 
 
 
+\newdimen \gujiwidth
+\newdimen \gujiheight
 
-\definepapersize [竹簡]  [\c!width=297mm,\c!height=450mm]
-\definepapersize [整頁]  [\c!width=450mm,\c!height=297mm]
+\gujiwidth  \dimexpr \gujiparameter{文字大小}*\gujiparameter{每版列數} + \gujiparameter{版芯寬度} + \gujiparameter{文字大小}*9 \relax
+\gujiheight \dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數} + \gujiparameter{文字大小}*8 \relax
+
+\definepapersize [竹簡]  [\c!width=\gujiheight,\c!height=\gujiwidth ]
+\definepapersize [整頁]  [\c!width=\gujiwidth ,\c!height=\gujiheight]
 
 
 \setuppapersize[竹簡,rotated,270][整頁]
@@ -336,8 +340,11 @@ pdf.setobjcompresslevel(0)
   ,veroffset=\zeropoint
   ,headerdistance=\zeropoint
   ,footerdistance=\zeropoint
-  ,backspace=\dimexpr \gujiparameter{文字大小}*7 \relax
-  ,topspace=\the\baselineskip
+  ,backspace=\dimexpr \paperwidth-\textwidth-\gujiparameter{文字大小}*2 \relax
+  ,topspace=\dimexpr \gujiparameter{文字大小}*2 \relax
+  ,margin=\zeropoint
+  ,header=\zeropoint
+  ,footer=\zeropoint
   ,grid=min%
   ,marking=on%
   ,lines=\gujiparameter{每版列數}%

@@ -1,6 +1,6 @@
 open source     > 1 > 1 > /opt/context/tex/texmf-context/tex/context/base/mkiv/cont-yes.mkiv
 
-ConTeXt  ver: 2016.03.13 23:40 MKIV beta  fmt: 2016.3.15  int: english/english
+ConTeXt  ver: 2016.03.26 13:51 MKIV beta  fmt: 2016.3.30  int: english/english
 
 system          > 'cont-new.mkiv' loaded
 open source     > 2 > 2 > /opt/context/tex/texmf-context/tex/context/base/mkiv/cont-new.mkiv
@@ -16,65 +16,320 @@ open source     > 3 > 4 > p-guji.mkvi
 loading         > ConTeXt Page Macros / GuJi
 resolvers       > lua > loading file 'guji.lua' succeeded
 close source    > 3 > 4 > p-guji.mkvi
-structures      > begin of sectionblock '目錄'
-structure       > sectioning > title @ level 2 : 0.0 -> \headtext {content}
-structures      > end of sectionblock '目錄'
+structures      > begin of sectionblock '補史記'
+structure       > sectioning > bushi @ level 2 : 0.0 -> 三皇
+open source     > 3 > 5 > 本紀/三皇/三皇序.tex
+close source    > 3 > 5 > 本紀/三皇/三皇序.tex
+open source     > 3 > 6 > 本紀/三皇/三皇.tex
 metapost        > initializing instance 'metafun' using format 'metafun'
 metapost        > loading 'metafun' as '/opt/context/tex/texmf-context/metapost/context/base/mpiv/metafun.mpiv' using method 'default'
 metapost        > initializing number mode 'scaled'
 backend         > xmp > using file '/opt/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml'
 pages           > flushing realpage 1, userpage 1
+pages           > flushing realpage 2, userpage 2
+close source    > 3 > 6 > 本紀/三皇/三皇.tex
+pages           > flushing realpage 3, userpage 3
+structures      > end of sectionblock '補史記'
+pages           > flushing realpage 4, userpage 4
 structures      > begin of sectionblock '本紀'
 structure       > sectioning > chapter @ level 2 : 0.1 -> 五帝
-open source     > 3 > 5 > Annals/Vol01/scroll000.tex
-close source    > 3 > 5 > Annals/Vol01/scroll000.tex
-open source     > 3 > 6 > Annals/Vol01/scroll001.tex
-pages           > flushing realpage 2, userpage 2
-pages           > flushing realpage 3, userpage 3
-pages           > flushing realpage 4, userpage 4
+open source     > 3 > 7 > 本紀/五帝/五帝序.tex
+close source    > 3 > 7 > 本紀/五帝/五帝序.tex
+open source     > 3 > 8 > 本紀/五帝/黃帝.tex
 pages           > flushing realpage 5, userpage 5
 pages           > flushing realpage 6, userpage 6
 pages           > flushing realpage 7, userpage 7
-close source    > 3 > 6 > Annals/Vol01/scroll001.tex
-open source     > 3 > 7 > Annals/Vol01/scroll002.tex
 pages           > flushing realpage 8, userpage 8
-close source    > 3 > 7 > Annals/Vol01/scroll002.tex
-open source     > 3 > 8 > Annals/Vol01/scroll003.tex
 pages           > flushing realpage 9, userpage 9
-close source    > 3 > 8 > Annals/Vol01/scroll003.tex
 pages           > flushing realpage 10, userpage 10
-open source     > 3 > 9 > Annals/Vol01/scroll004.tex
+close source    > 3 > 8 > 本紀/五帝/黃帝.tex
+open source     > 3 > 9 > 本紀/五帝/帝顓頊.tex
 pages           > flushing realpage 11, userpage 11
+close source    > 3 > 9 > 本紀/五帝/帝顓頊.tex
+open source     > 3 > 10 > 本紀/五帝/帝嚳.tex
 pages           > flushing realpage 12, userpage 12
+close source    > 3 > 10 > 本紀/五帝/帝嚳.tex
 pages           > flushing realpage 13, userpage 13
+open source     > 3 > 11 > 本紀/五帝/帝堯.tex
 pages           > flushing realpage 14, userpage 14
 pages           > flushing realpage 15, userpage 15
 pages           > flushing realpage 16, userpage 16
 pages           > flushing realpage 17, userpage 17
 pages           > flushing realpage 18, userpage 18
 pages           > flushing realpage 19, userpage 19
-close source    > 3 > 9 > Annals/Vol01/scroll004.tex
 pages           > flushing realpage 20, userpage 20
 pages           > flushing realpage 21, userpage 21
-structure       > sectioning > chapter @ level 2 : 0.2 -> 夏
 pages           > flushing realpage 22, userpage 22
-structure       > sectioning > chapter @ level 2 : 0.3 -> 殷
+close source    > 3 > 11 > 本紀/五帝/帝堯.tex
 pages           > flushing realpage 23, userpage 23
-structure       > sectioning > chapter @ level 2 : 0.4 -> 周
 pages           > flushing realpage 24, userpage 24
-structure       > sectioning > chapter @ level 2 : 0.5 -> 秦
-structures      > end of sectionblock '本紀'
+structure       > sectioning > chapter @ level 2 : 0.2 -> 夏
 pages           > flushing realpage 25, userpage 25
+structure       > sectioning > chapter @ level 2 : 0.3 -> 殷
+pages           > flushing realpage 26, userpage 26
+structure       > sectioning > chapter @ level 2 : 0.4 -> 周
+pages           > flushing realpage 27, userpage 27
+structure       > sectioning > chapter @ level 2 : 0.5 -> 秦
+pages           > flushing realpage 28, userpage 28
+structure       > sectioning > chapter @ level 2 : 0.6 -> 秦始皇
+pages           > flushing realpage 29, userpage 29
+structure       > sectioning > chapter @ level 2 : 0.7 -> 項羽
+pages           > flushing realpage 30, userpage 30
+structure       > sectioning > chapter @ level 2 : 0.8 -> 高祖
+pages           > flushing realpage 31, userpage 31
+structure       > sectioning > chapter @ level 2 : 0.9 -> 呂太后
+pages           > flushing realpage 32, userpage 32
+structure       > sectioning > chapter @ level 2 : 0.10 -> 孝文
+pages           > flushing realpage 33, userpage 33
+structure       > sectioning > chapter @ level 2 : 0.11 -> 孝景
+pages           > flushing realpage 34, userpage 34
+structure       > sectioning > chapter @ level 2 : 0.12 -> 孝武
+structures      > end of sectionblock '本紀'
+pages           > flushing realpage 35, userpage 35
 structures      > begin of sectionblock '年表'
+structure       > sectioning > chapter @ level 2 : 0.1 -> 三代世表
+pages           > flushing realpage 36, userpage 36
+structure       > sectioning > chapter @ level 2 : 0.2 -> 十二諸侯年表
+pages           > flushing realpage 37, userpage 37
+structure       > sectioning > chapter @ level 2 : 0.3 -> 六國年表
+pages           > flushing realpage 38, userpage 38
+structure       > sectioning > chapter @ level 2 : 0.4 -> 秦楚之際月表
+pages           > flushing realpage 39, userpage 39
+structure       > sectioning > chapter @ level 2 : 0.5 -> 漢興以來諸侯王年表
+pages           > flushing realpage 40, userpage 40
+structure       > sectioning > chapter @ level 2 : 0.6 -> 高祖功臣侯者年表
+pages           > flushing realpage 41, userpage 41
+structure       > sectioning > chapter @ level 2 : 0.7 -> 惠景閒侯者年表
+pages           > flushing realpage 42, userpage 42
+structure       > sectioning > chapter @ level 2 : 0.8 -> 建元以來侯者年表
+pages           > flushing realpage 43, userpage 43
+structure       > sectioning > chapter @ level 2 : 0.9 -> 建元已來王子侯者年表
+pages           > flushing realpage 44, userpage 44
+structure       > sectioning > chapter @ level 2 : 0.10 -> 漢興以來將相名臣年表
 structures      > end of sectionblock '年表'
+pages           > flushing realpage 45, userpage 45
 structures      > begin of sectionblock '書'
+structure       > sectioning > chapter @ level 2 : 0.1 -> 禮
+pages           > flushing realpage 46, userpage 46
+structure       > sectioning > chapter @ level 2 : 0.2 -> 樂
+pages           > flushing realpage 47, userpage 47
+structure       > sectioning > chapter @ level 2 : 0.3 -> 律
+pages           > flushing realpage 48, userpage 48
+structure       > sectioning > chapter @ level 2 : 0.4 -> 曆
+pages           > flushing realpage 49, userpage 49
+structure       > sectioning > chapter @ level 2 : 0.5 -> 天官
+pages           > flushing realpage 50, userpage 50
+structure       > sectioning > chapter @ level 2 : 0.6 -> 封禪
+pages           > flushing realpage 51, userpage 51
+structure       > sectioning > chapter @ level 2 : 0.7 -> 河渠
+pages           > flushing realpage 52, userpage 52
+structure       > sectioning > chapter @ level 2 : 0.8 -> 平準
 structures      > end of sectionblock '書'
+pages           > flushing realpage 53, userpage 53
 structures      > begin of sectionblock '世家'
+structure       > sectioning > chapter @ level 2 : 0.1 -> 吳太伯世家
+pages           > flushing realpage 54, userpage 54
+structure       > sectioning > chapter @ level 2 : 0.2 -> 齊太公世家
+pages           > flushing realpage 55, userpage 55
+structure       > sectioning > chapter @ level 2 : 0.3 -> 魯周公世家
+pages           > flushing realpage 56, userpage 56
+structure       > sectioning > chapter @ level 2 : 0.4 -> 燕召公世家
+pages           > flushing realpage 57, userpage 57
+structure       > sectioning > chapter @ level 2 : 0.5 -> 管蔡世家
+pages           > flushing realpage 58, userpage 58
+structure       > sectioning > chapter @ level 2 : 0.6 -> 陳杞世家
+pages           > flushing realpage 59, userpage 59
+structure       > sectioning > chapter @ level 2 : 0.7 -> 衛康叔世家
+pages           > flushing realpage 60, userpage 60
+structure       > sectioning > chapter @ level 2 : 0.8 -> 宋微子世家
+pages           > flushing realpage 61, userpage 61
+structure       > sectioning > chapter @ level 2 : 0.9 -> 晉世家
+pages           > flushing realpage 62, userpage 62
+structure       > sectioning > chapter @ level 2 : 0.10 -> 楚世家
+pages           > flushing realpage 63, userpage 63
+structure       > sectioning > chapter @ level 2 : 0.11 -> 越王句踐世家
+pages           > flushing realpage 64, userpage 64
+structure       > sectioning > chapter @ level 2 : 0.12 -> 鄭世家
+pages           > flushing realpage 65, userpage 65
+structure       > sectioning > chapter @ level 2 : 0.13 -> 趙世家
+pages           > flushing realpage 66, userpage 66
+structure       > sectioning > chapter @ level 2 : 0.14 -> 魏世家
+pages           > flushing realpage 67, userpage 67
+structure       > sectioning > chapter @ level 2 : 0.15 -> 韓世家
+pages           > flushing realpage 68, userpage 68
+structure       > sectioning > chapter @ level 2 : 0.16 -> 田敬仲完世家
+pages           > flushing realpage 69, userpage 69
+structure       > sectioning > chapter @ level 2 : 0.17 -> 孔子世家
+pages           > flushing realpage 70, userpage 70
+structure       > sectioning > chapter @ level 2 : 0.18 -> 陳涉世家
+pages           > flushing realpage 71, userpage 71
+structure       > sectioning > chapter @ level 2 : 0.19 -> 外戚世家
+pages           > flushing realpage 72, userpage 72
+structure       > sectioning > chapter @ level 2 : 0.20 -> 楚元王世家
+pages           > flushing realpage 73, userpage 73
+structure       > sectioning > chapter @ level 2 : 0.21 -> 荊燕世家
+pages           > flushing realpage 74, userpage 74
+structure       > sectioning > chapter @ level 2 : 0.22 -> 齊悼惠王世家
+pages           > flushing realpage 75, userpage 75
+structure       > sectioning > chapter @ level 2 : 0.23 -> 蕭相國世家
+pages           > flushing realpage 76, userpage 76
+structure       > sectioning > chapter @ level 2 : 0.24 -> 曹相國世家
+pages           > flushing realpage 77, userpage 77
+structure       > sectioning > chapter @ level 2 : 0.25 -> 留侯世家
+pages           > flushing realpage 78, userpage 78
+structure       > sectioning > chapter @ level 2 : 0.26 -> 陳丞相世家
+pages           > flushing realpage 79, userpage 79
+structure       > sectioning > chapter @ level 2 : 0.27 -> 絳侯周勃世家
+pages           > flushing realpage 80, userpage 80
+structure       > sectioning > chapter @ level 2 : 0.28 -> 梁孝王世家
+pages           > flushing realpage 81, userpage 81
+structure       > sectioning > chapter @ level 2 : 0.29 -> 五宗世家
+pages           > flushing realpage 82, userpage 82
+structure       > sectioning > chapter @ level 2 : 0.30 -> 三王世家
 structures      > end of sectionblock '世家'
+pages           > flushing realpage 83, userpage 83
 structures      > begin of sectionblock '列傳'
+structure       > sectioning > chapter @ level 2 : 0.1 -> 伯夷列傳
+pages           > flushing realpage 84, userpage 84
+structure       > sectioning > chapter @ level 2 : 0.2 -> 管晏列傳
+pages           > flushing realpage 85, userpage 85
+structure       > sectioning > chapter @ level 2 : 0.3 -> 老子韓非列傳
+pages           > flushing realpage 86, userpage 86
+structure       > sectioning > chapter @ level 2 : 0.4 -> 司馬穰苴列傳
+pages           > flushing realpage 87, userpage 87
+structure       > sectioning > chapter @ level 2 : 0.5 -> 孫子吳起列傳
+pages           > flushing realpage 88, userpage 88
+structure       > sectioning > chapter @ level 2 : 0.6 -> 伍子胥列傳
+pages           > flushing realpage 89, userpage 89
+structure       > sectioning > chapter @ level 2 : 0.7 -> 仲尼弟子列傳
+pages           > flushing realpage 90, userpage 90
+structure       > sectioning > chapter @ level 2 : 0.8 -> 商君列傳
+pages           > flushing realpage 91, userpage 91
+structure       > sectioning > chapter @ level 2 : 0.9 -> 蘇秦列傳
+pages           > flushing realpage 92, userpage 92
+structure       > sectioning > chapter @ level 2 : 0.10 -> 張儀列傳
+pages           > flushing realpage 93, userpage 93
+structure       > sectioning > chapter @ level 2 : 0.11 -> 樗里子甘茂列傳
+pages           > flushing realpage 94, userpage 94
+structure       > sectioning > chapter @ level 2 : 0.12 -> 穰侯列傳
+pages           > flushing realpage 95, userpage 95
+structure       > sectioning > chapter @ level 2 : 0.13 -> 白起王翦列傳
+pages           > flushing realpage 96, userpage 96
+structure       > sectioning > chapter @ level 2 : 0.14 -> 孟子荀卿列傳
+pages           > flushing realpage 97, userpage 97
+structure       > sectioning > chapter @ level 2 : 0.15 -> 孟嘗君列傳
+pages           > flushing realpage 98, userpage 98
+structure       > sectioning > chapter @ level 2 : 0.16 -> 平原君虞卿列傳
+pages           > flushing realpage 99, userpage 99
+structure       > sectioning > chapter @ level 2 : 0.17 -> 魏公子列傳
+pages           > flushing realpage 100, userpage 100
+structure       > sectioning > chapter @ level 2 : 0.18 -> 春申君列傳
+pages           > flushing realpage 101, userpage 101
+structure       > sectioning > chapter @ level 2 : 0.19 -> 范睢蔡澤列傳
+pages           > flushing realpage 102, userpage 102
+structure       > sectioning > chapter @ level 2 : 0.20 -> 樂毅列傳
+pages           > flushing realpage 103, userpage 103
+structure       > sectioning > chapter @ level 2 : 0.21 -> 廉頗藺相如列傳
+pages           > flushing realpage 104, userpage 104
+structure       > sectioning > chapter @ level 2 : 0.22 -> 田單列傳
+pages           > flushing realpage 105, userpage 105
+structure       > sectioning > chapter @ level 2 : 0.23 -> 魯仲連鄒陽列傳
+pages           > flushing realpage 106, userpage 106
+structure       > sectioning > chapter @ level 2 : 0.24 -> 屈原賈生列傳
+pages           > flushing realpage 107, userpage 107
+structure       > sectioning > chapter @ level 2 : 0.25 -> 呂不韋生列傳
+pages           > flushing realpage 108, userpage 108
+structure       > sectioning > chapter @ level 2 : 0.26 -> 刺客列傳
+pages           > flushing realpage 109, userpage 109
+structure       > sectioning > chapter @ level 2 : 0.27 -> 李斯列傳
+pages           > flushing realpage 110, userpage 110
+structure       > sectioning > chapter @ level 2 : 0.28 -> 蒙恬列傳
+pages           > flushing realpage 111, userpage 111
+structure       > sectioning > chapter @ level 2 : 0.29 -> 張耳陳餘列傳
+pages           > flushing realpage 112, userpage 112
+structure       > sectioning > chapter @ level 2 : 0.30 -> 魏豹彭越列傳
+pages           > flushing realpage 113, userpage 113
+structure       > sectioning > chapter @ level 2 : 0.31 -> 黥布列傳
+pages           > flushing realpage 114, userpage 114
+structure       > sectioning > chapter @ level 2 : 0.32 -> 淮陰侯列傳
+pages           > flushing realpage 115, userpage 115
+structure       > sectioning > chapter @ level 2 : 0.33 -> 韓信盧綰列傳
+pages           > flushing realpage 116, userpage 116
+structure       > sectioning > chapter @ level 2 : 0.34 -> 田儋列傳
+pages           > flushing realpage 117, userpage 117
+structure       > sectioning > chapter @ level 2 : 0.35 -> 樊酈滕灌列傳
+pages           > flushing realpage 118, userpage 118
+structure       > sectioning > chapter @ level 2 : 0.36 -> 張丞相列傳
+pages           > flushing realpage 119, userpage 119
+structure       > sectioning > chapter @ level 2 : 0.37 -> 酈生陸賈列傳
+pages           > flushing realpage 120, userpage 120
+structure       > sectioning > chapter @ level 2 : 0.38 -> 傅靳蒯成列傳
+pages           > flushing realpage 121, userpage 121
+structure       > sectioning > chapter @ level 2 : 0.39 -> 劉敬叔孫通列傳
+pages           > flushing realpage 122, userpage 122
+structure       > sectioning > chapter @ level 2 : 0.40 -> 季布欒布列傳
+pages           > flushing realpage 123, userpage 123
+structure       > sectioning > chapter @ level 2 : 0.41 -> 袁盎晁錯列傳
+pages           > flushing realpage 124, userpage 124
+structure       > sectioning > chapter @ level 2 : 0.42 -> 張釋之馮唐列傳
+pages           > flushing realpage 125, userpage 125
+structure       > sectioning > chapter @ level 2 : 0.43 -> 萬石張叔列傳
+pages           > flushing realpage 126, userpage 126
+structure       > sectioning > chapter @ level 2 : 0.44 -> 田叔列傳
+pages           > flushing realpage 127, userpage 127
+structure       > sectioning > chapter @ level 2 : 0.45 -> 扁鵲倉公列傳
+pages           > flushing realpage 128, userpage 128
+structure       > sectioning > chapter @ level 2 : 0.46 -> 吳王濞列傳
+pages           > flushing realpage 129, userpage 129
+structure       > sectioning > chapter @ level 2 : 0.47 -> 魏其武安侯列
+pages           > flushing realpage 130, userpage 130
+structure       > sectioning > chapter @ level 2 : 0.48 -> 韓長孺列傳
+pages           > flushing realpage 131, userpage 131
+structure       > sectioning > chapter @ level 2 : 0.49 -> 李將軍列傳
+pages           > flushing realpage 132, userpage 132
+structure       > sectioning > chapter @ level 2 : 0.50 -> 匈奴列傳
+pages           > flushing realpage 133, userpage 133
+structure       > sectioning > chapter @ level 2 : 0.51 -> 衛將軍驃騎列傳
+pages           > flushing realpage 134, userpage 134
+structure       > sectioning > chapter @ level 2 : 0.52 -> 平津侯主父列傳
+pages           > flushing realpage 135, userpage 135
+structure       > sectioning > chapter @ level 2 : 0.53 -> 南越列傳
+pages           > flushing realpage 136, userpage 136
+structure       > sectioning > chapter @ level 2 : 0.54 -> 東越列傳
+pages           > flushing realpage 137, userpage 137
+structure       > sectioning > chapter @ level 2 : 0.55 -> 朝鮮列傳
+pages           > flushing realpage 138, userpage 138
+structure       > sectioning > chapter @ level 2 : 0.56 -> 西南夷列傳
+pages           > flushing realpage 139, userpage 139
+structure       > sectioning > chapter @ level 2 : 0.57 -> 司馬相如列傳
+pages           > flushing realpage 140, userpage 140
+structure       > sectioning > chapter @ level 2 : 0.58 -> 淮南衡山列傳
+pages           > flushing realpage 141, userpage 141
+structure       > sectioning > chapter @ level 2 : 0.59 -> 循吏列傳
+pages           > flushing realpage 142, userpage 142
+structure       > sectioning > chapter @ level 2 : 0.60 -> 汲鄭列傳
+pages           > flushing realpage 143, userpage 143
+structure       > sectioning > chapter @ level 2 : 0.61 -> 儒林列傳
+pages           > flushing realpage 144, userpage 144
+structure       > sectioning > chapter @ level 2 : 0.62 -> 酷吏列傳
+pages           > flushing realpage 145, userpage 145
+structure       > sectioning > chapter @ level 2 : 0.63 -> 大宛列傳
+pages           > flushing realpage 146, userpage 146
+structure       > sectioning > chapter @ level 2 : 0.64 -> 游俠列傳
+pages           > flushing realpage 147, userpage 147
+structure       > sectioning > chapter @ level 2 : 0.65 -> 佞幸列傳
+pages           > flushing realpage 148, userpage 148
+structure       > sectioning > chapter @ level 2 : 0.66 -> 滑稽列傳
+pages           > flushing realpage 149, userpage 149
+structure       > sectioning > chapter @ level 2 : 0.67 -> 日者列傳
+pages           > flushing realpage 150, userpage 150
+structure       > sectioning > chapter @ level 2 : 0.68 -> 龜策列傳
+pages           > flushing realpage 151, userpage 151
+structure       > sectioning > chapter @ level 2 : 0.69 -> 貨殖列傳
 structures      > end of sectionblock '列傳'
-close source    > 2 > 9 > /home/zhichu/project/Books/git/01-shiji/src/sample.mkiv
-close source    > 1 > 9 > /opt/context/tex/texmf-context/tex/context/base/mkiv/cont-yes.mkiv
+pages           > flushing realpage 152, userpage 152
+close source    > 2 > 11 > /home/zhichu/project/Books/git/01-shiji/src/sample.mkiv
+close source    > 1 > 11 > /opt/context/tex/texmf-context/tex/context/base/mkiv/cont-yes.mkiv
 
 system          > structure > start used structure
 
@@ -96,29 +351,31 @@ used file       >    8: filename=texgyre.lfg filetype=tex foundname=/opt/context
 used file       >    9: filename=texgyretermes-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyretermes-regular.otf usedmethod=database
 used file       >   10: filename=AdobeFangsongStd-Regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf-fonts/fonts/opentype/Adobe/AdobeFangsongStd-Regular.otf usedmethod=database
 used file       >   11: filename=texgyretermes-math.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre-math/texgyretermes-math.otf usedmethod=database
-used file       >   12: filename=metafun.mpiv filetype=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/metafun.mpiv usedmethod=database
-used file       >   13: filename=mp-base.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-base.mpiv usedmethod=database
-used file       >   14: filename=mp-tool.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-tool.mpiv usedmethod=database
-used file       >   15: filename=mp-mlib.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-mlib.mpiv usedmethod=database
-used file       >   16: filename=mp-luas.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-luas.mpiv usedmethod=database
-used file       >   17: filename=mp-page.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-page.mpiv usedmethod=database
-used file       >   18: filename=mp-butt.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-butt.mpiv usedmethod=database
-used file       >   19: filename=mp-shap.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-shap.mpiv usedmethod=database
-used file       >   20: filename=mp-grph.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-grph.mpiv usedmethod=database
-used file       >   21: filename=mp-grid.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-grid.mpiv usedmethod=database
-used file       >   22: filename=mp-form.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-form.mpiv usedmethod=database
-used file       >   23: filename=mp-figs.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-figs.mpiv usedmethod=database
-used file       >   24: filename=mp-func.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-func.mpiv usedmethod=database
-used file       >   25: filename=texgyreheros-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf usedmethod=database
-used file       >   26: filename=mp-crop.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-crop.mpiv usedmethod=database
-used file       >   27: filename=dejavusansmono filetype=ttf format=ttf foundname=/opt/context/tex/texmf/fonts/truetype/public/dejavu/DejaVuSansMono.ttf usedmethod=database
-used file       >   28: filename=lpdf-pdx.xml filetype=tex foundname=/opt/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml usedmethod=otherwise
-used file       >   29: filename=Annals/Vol01/scroll000.tex foundname=Annals/Vol01/scroll000.tex usedmethod=direct
-used file       >   30: filename=texgyrecursor-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-regular.otf usedmethod=database
-used file       >   31: filename=Annals/Vol01/scroll001.tex foundname=Annals/Vol01/scroll001.tex usedmethod=direct
-used file       >   32: filename=Annals/Vol01/scroll002.tex foundname=Annals/Vol01/scroll002.tex usedmethod=direct
-used file       >   33: filename=Annals/Vol01/scroll003.tex foundname=Annals/Vol01/scroll003.tex usedmethod=direct
-used file       >   34: filename=Annals/Vol01/scroll004.tex foundname=Annals/Vol01/scroll004.tex usedmethod=direct
+used file       >   12: filename=texgyrecursor-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-regular.otf usedmethod=database
+used file       >   13: filename=本紀/三皇/三皇序.tex foundname=本紀/三皇/三皇序.tex usedmethod=direct
+used file       >   14: filename=本紀/三皇/三皇.tex foundname=本紀/三皇/三皇.tex usedmethod=direct
+used file       >   15: filename=metafun.mpiv filetype=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/metafun.mpiv usedmethod=database
+used file       >   16: filename=mp-base.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-base.mpiv usedmethod=database
+used file       >   17: filename=mp-tool.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-tool.mpiv usedmethod=database
+used file       >   18: filename=mp-mlib.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-mlib.mpiv usedmethod=database
+used file       >   19: filename=mp-luas.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-luas.mpiv usedmethod=database
+used file       >   20: filename=mp-page.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-page.mpiv usedmethod=database
+used file       >   21: filename=mp-butt.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-butt.mpiv usedmethod=database
+used file       >   22: filename=mp-shap.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-shap.mpiv usedmethod=database
+used file       >   23: filename=mp-grph.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-grph.mpiv usedmethod=database
+used file       >   24: filename=mp-grid.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-grid.mpiv usedmethod=database
+used file       >   25: filename=mp-form.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-form.mpiv usedmethod=database
+used file       >   26: filename=mp-figs.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-figs.mpiv usedmethod=database
+used file       >   27: filename=mp-func.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-func.mpiv usedmethod=database
+used file       >   28: filename=texgyreheros-regular.otf filetype=otf format=otf foundname=/opt/context/tex/texmf/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf usedmethod=database
+used file       >   29: filename=mp-crop.mpiv filetype=mp format=mp foundname=/opt/context/tex/texmf-context/metapost/context/base/mpiv/mp-crop.mpiv usedmethod=database
+used file       >   30: filename=dejavusansmono filetype=ttf format=ttf foundname=/opt/context/tex/texmf/fonts/truetype/public/dejavu/DejaVuSansMono.ttf usedmethod=database
+used file       >   31: filename=lpdf-pdx.xml filetype=tex foundname=/opt/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml usedmethod=otherwise
+used file       >   32: filename=本紀/五帝/五帝序.tex foundname=本紀/五帝/五帝序.tex usedmethod=direct
+used file       >   33: filename=本紀/五帝/黃帝.tex foundname=本紀/五帝/黃帝.tex usedmethod=direct
+used file       >   34: filename=本紀/五帝/帝顓頊.tex foundname=本紀/五帝/帝顓頊.tex usedmethod=direct
+used file       >   35: filename=本紀/五帝/帝嚳.tex foundname=本紀/五帝/帝嚳.tex usedmethod=direct
+used file       >   36: filename=本紀/五帝/帝堯.tex foundname=本紀/五帝/帝堯.tex usedmethod=direct
 
 system          > files > stop used files
 
@@ -144,28 +401,29 @@ system          > options > stop commandline files
 
 mkiv lua stats  > used config file: selfautoparent:/texmf/web2c/texmfcnf.lua
 mkiv lua stats  > used cache path: /opt/context/tex/texmf-cache/luatex-cache/context/5fe67e0bfe781ce0dde776fb1556f32e
-mkiv lua stats  > resource resolver: loadtime 0.015 seconds, 0 scans with scantime 0.000 seconds, 0 shared scans, 34 found files, scanned paths: <none>
-mkiv lua stats  > stored bytecode data: 385 modules (0.175 sec), 81 tables (0.008 sec), 466 chunks (0.184 sec)
-mkiv lua stats  > traced context: maxstack: 1171, freed: 9, unreachable: 1162
+mkiv lua stats  > resource resolver: loadtime 0.015 seconds, 0 scans with scantime 0.000 seconds, 0 shared scans, 36 found files, scanned paths: <none>
+mkiv lua stats  > stored bytecode data: 385 modules (0.175 sec), 81 tables (0.008 sec), 466 chunks (0.183 sec)
+mkiv lua stats  > traced context: maxstack: 1172, freed: 9, unreachable: 1163
 mkiv lua stats  > cleaned up reserved nodes: 51 nodes, 10 lists of 448
-mkiv lua stats  > node memory usage: 11 glue, 12 penalty, 1505 attribute, 802 glue_spec, 260 attribute_list, 2 temp
-mkiv lua stats  > node list callback tasks: 6 unique task lists, 5 instances (re)created, 6897 calls
-mkiv lua stats  > h-node processing time: 0.042 seconds including kernel
-mkiv lua stats  > attribute processing time: 0.015 seconds front- and backend
+mkiv lua stats  > node memory usage: 3 glue, 4 penalty, 2799 attribute, 1020 glue_spec, 518 attribute_list, 2 temp
+mkiv lua stats  > node list callback tasks: 6 unique task lists, 5 instances (re)created, 10483 calls
+mkiv lua stats  > h-node processing time: 0.052 seconds including kernel
+mkiv lua stats  > attribute processing time: 0.042 seconds front- and backend
 mkiv lua stats  > used backend: pdf (backend for directly generating pdf output)
-mkiv lua stats  > jobdata time: 0.001 seconds saving, 0.001 seconds loading
-mkiv lua stats  > callbacks: 10777 direct, 2641 indirect, 13418 total
+mkiv lua stats  > jobdata time: 0.009 seconds saving, 0.006 seconds loading
+mkiv lua stats  > callbacks: 20601 direct, 3002 indirect, 23603 total
 mkiv lua stats  > randomizer: resumed with value 0.46142893821071
-mkiv lua stats  > v-node processing time: 0.021 seconds 
+mkiv lua stats  > v-node processing time: 0.033 seconds 
 mkiv lua stats  > loaded tex modules: 1 requested, all found (p-guji)
 mkiv lua stats  > loaded patterns: en::2, load time: 0.000
+mkiv lua stats  > interactive elements: 0 references, 130 destinations
 mkiv lua stats  > result saved in file: sample.pdf, compresslevel 0, objectcompresslevel 0
 mkiv lua stats  > loaded fonts: 6 files: adobefangsongstd-regular.otf, texgyretermes-math.otf, texgyrecursor-regular.otf, texgyreheros-regular.otf, texgyretermes-regular.otf, dejavusansmono.ttf
-mkiv lua stats  > font engine: otf 3.015, afm 1.500, tfm 1.000, 12 instances, 4 shared in backend, 2 common vectors, 2 common hashes, load time 1.702 seconds 
-mkiv lua stats  > metapost processing time: 0.135 seconds, loading: 0.016, execution: 0.117, n: 53, average: 0.005, instances: 1, memory: 2.350 M
+mkiv lua stats  > font engine: otf 3.016, afm 1.500, tfm 1.000, 12 instances, 4 shared in backend, 2 common vectors, 2 common hashes, load time 1.648 seconds 
+mkiv lua stats  > metapost processing time: 0.813 seconds, loading: 0.016, execution: 0.711, n: 307, average: 0.005, instances: 1, memory: 3.362 M
 mkiv lua stats  > used platform: linux-64, type: unix, binary subtree: texmf-linux-64
-mkiv lua stats  > luatex banner: this is luajittex, version beta-0.89.4 (tex live 2016/dev)
-mkiv lua stats  > control sequences: 44474 of 65536 + 100000
-mkiv lua stats  > lua properties: engine: luajit, used memory: 157 MB (ctx: 0 MB), hash type: lua51, hash chars: min(64,40), symbol mask: utf (τεχ)
-mkiv lua stats  > runtime: 2.757 seconds, 25 processed pages, 25 shipped pages, 9.068 pages/second
+mkiv lua stats  > luatex banner: this is luajittex, version beta-0.90.0 (tex live 2016)
+mkiv lua stats  > control sequences: 44580 of 65536 + 100000
+mkiv lua stats  > lua properties: engine: luajit, used memory: 167 MB (ctx: 0 MB), hash type: lua51, hash chars: min(64,40), symbol mask: utf (τεχ)
+mkiv lua stats  > runtime: 4.537 seconds, 152 processed pages, 152 shipped pages, 33.502 pages/second
 

@@ -210,17 +210,17 @@ pdf.setobjcompresslevel(0)
         \global \lastjianheight \dimexpr \predisplaysize-2em \relax
     $$
 %D restore the \prevgraf counter
-    \saveprevgraf\prevgraf
+%     \saveprevgraf\prevgraf
 %D the display math environment adds 3 extra lines: "above," "math," and "below"
-    \advance\saveprevgraf by -3
+%     \advance\saveprevgraf by -3
 %D and the previous line has not really been officially finished
-    \advance\saveprevgraf by -1
-    \prevgraf\saveprevgraf
+%     \advance\saveprevgraf by -1
+%     \prevgraf\saveprevgraf
     \setlocalhsize \jianheight\localhsize
     \noindent\kern\lastjianheight
     \firstjiazhuheight \dimexpr \jianheight-\lastjianheight \relax
   \else
-    \saveprevgraf\prevgraf
+%     \saveprevgraf\prevgraf
     \setlocalhsize \jianheight\localhsize
     \advance\jianheight-\jiazhuindent \firstjiazhuheight\jianheight
     \hangindent=\jiazhuindent \hangafter=\zerocount
@@ -239,7 +239,7 @@ pdf.setobjcompresslevel(0)
       \tt #注\par
     \egroup
 %D
-  \prevgraf\saveprevgraf
+%   \prevgraf\saveprevgraf
 %   \dosetattribute{gujiattr}{2}% jiazhu
   \loop\ifvbox\remainjiazhu
       \setbox\currentjiazhu=\vsplit\remainjiazhu to\baselineskip
@@ -590,7 +590,7 @@ StopPage ;
   ,textstyle=normal%
   ,numberstyle=normal%
   ,number=yes%
-  ,page=right%
+  ,page=yes%
   ,continue=yes%
   ,alternative=command%
   ,hang=line%
@@ -608,20 +608,26 @@ StopPage ;
   ,textstyle=normal%
   ,numberstyle=normal%
   ,number=yes%
-  ,page=right%
+  ,page=yes%
   ,continue=yes%
-  ,marking=on%
   ,alternative=command%
   ,hang=line%
   ,conversion=guji%
   ,before=%
   ,after=%
+  ,prefix=%
+  ,sectionsegments=chapter%
   ,command=\doTitle%
   ]
 
+\definehead[bushi][title]
+\setuphead
+  [bushi]
+  [command=\dobushi]
 
-\define[2]\doChapter{\hbox to10em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
-\define[2]\doTitle{\gujiparameter{書名}#2}
+\define[2]\doChapter{\hbox to15em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
+\define[2]\doTitle{#2}
+\define[2]\dobushi{\hbox to13em{#2\chaptercatagory}補史記　　　　|[小司馬氏撰並注]}
 
 % \definehead[本紀][chapter][style=,before=,after=]
 % \definehead[列傳][chapter][style=,before=,after=]
@@ -638,7 +644,7 @@ StopPage ;
 
 \definecombinedlist
   [content]
-  [chapter]
+  [part,chapter]
 
 
 
@@ -655,6 +661,7 @@ StopPage ;
 \setupcounter[userpage][numberconversionset=pagenumber]
 
 \defineconversionset [目錄:pagenumber][][guji]
+\defineconversionset [補史記:pagenumber][][guji]
 \defineconversionset [本紀:pagenumber][][guji]
 \defineconversionset [年表:pagenumber][][guji]
 \defineconversionset [書:pagenumber][][guji]
@@ -663,46 +670,67 @@ StopPage ;
 
 \definesectionblock  [目錄][mulu]
 \definesectionblock  [本紀][benji]
+\definesectionblock  [補史記][bushiji]
 \definesectionblock  [年表][nianbiao]
 \definesectionblock  [書][shu]
 \definesectionblock  [世家][shijia]
 \definesectionblock  [列傳][liezhuan]
 
+\setupsectionblock   [目錄][page=yes,before=,after=]
+\setupsectionblock   [本紀][page=yes,before=,after=]
+\setupsectionblock   [補史記][page=yes,before=,after=]
+\setupsectionblock   [年表][page=yes,before=,after=]
+\setupsectionblock   [書][page=yes,before=,after=]
+\setupsectionblock   [世家][page=yes,before=,after=]
+\setupsectionblock   [列傳][page=yes,before=,after=]
+
 \startsectionblockenvironment[目錄]
-\setcounter[userpage][1]
-\def\coremarking{\gujiparameter{書名}目}
-\def\earmarking{目錄}
+\setcounter[userpage][1]%
+\def\coremarking{\gujiparameter{書名}目}%
+\def\earmarking{目錄}%
+\stopsectionblockenvironment
+
+
+\startsectionblockenvironment[補史記]
+\def\chaptercatagory{本紀}%
+\def\coremarking{\gujiparameter{書名}\getmarking[title][first]紀}%
+\def\earmarking{\getmarking[title][first]紀}%
 \stopsectionblockenvironment
 
 
 \startsectionblockenvironment[本紀]
-\def\chaptercatagory{本紀}
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}
-\def\earmarking{\getmarking[chapter][first]紀}
+\def\chaptercatagory{本紀}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]紀}%
+% \writetolist[part]{帝紀}{帝紀}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
-\def\chaptercatagory{年表}
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表}
-\def\earmarking{\getmarking[chapter][first]表}
+\def\chaptercatagory{年表}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表}%
+\def\earmarking{\getmarking[chapter][first]表}%
+% \writetolist[part]{年表}{年表}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
-\def\chaptercatagory{書}
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書}
-\def\earmarking{\getmarking[chapter][first]書}
+\def\chaptercatagory{書}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書}%
+\def\earmarking{\getmarking[chapter][first]書}%
+% \writetolist[part]{八書}{八書}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
-\def\chaptercatagory{世家}
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家}
-\def\earmarking{\getmarking[chapter][first]世家}
+\def\chaptercatagory{世家}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家}%
+\def\earmarking{\getmarking[chapter][first]世家}%
+% \writetolist[part]{世家}{世家}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
-\def\chaptercatagory{列傳}
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳}
-\def\earmarking{\getmarking[chapter][first]傳}
+\def\chaptercatagory{列傳}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳}%
+\def\earmarking{\getmarking[chapter][first]傳}%
+% \writetolist[part]{列傳}{列傳}%
 \stopsectionblockenvironment
 
 
@@ -735,6 +763,8 @@ StopPage ;
 
 \protect
 % \nopenalties
+
+\setupinteraction[state=start]
 
 \stopmodule
 \endinput

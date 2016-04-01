@@ -186,7 +186,6 @@ pdf.setobjcompresslevel(0)
 \newbox   \currentjiazhu
 \newbox   \lastjiazhu
 \newbox   \lastjian
-\newdimen \jiazhuindent  \jiazhuindent \dimexpr \gujiparameter{文字大小}*2 \relax
 \newdimen \jianheight
 \newdimen \lastjianheight
 \newdimen \firstjiazhuheight
@@ -222,8 +221,8 @@ pdf.setobjcompresslevel(0)
   \else
 %     \saveprevgraf\prevgraf
     \setlocalhsize \jianheight\localhsize
-    \advance\jianheight-\jiazhuindent \firstjiazhuheight\jianheight
-    \hangindent=\jiazhuindent \hangafter=\zerocount
+    \firstjiazhuheight\jianheight
+%     \hangindent=\effectiveleftskip \hangafter=\zerocount
   \fi
 %D done calculation.
 %D
@@ -627,7 +626,7 @@ StopPage ;
 
 \define[2]\doChapter{\hbox to15em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
 \define[2]\doTitle{#2}
-\define[2]\dobushi{\hbox to13em{#2\chaptercatagory}補史記　　　　|[小司馬氏撰並注]}
+\define[2]\dobushi{\hbox to18em{\hbox to13em{#2\chaptercatagory}補史記}|[小司馬氏撰並注]}
 
 % \definehead[本紀][chapter][style=,before=,after=]
 % \definehead[列傳][chapter][style=,before=,after=]
@@ -758,7 +757,8 @@ StopPage ;
     \egroup
 \to \everybeforeoutput
 
-
+\setupnarrower
+  [left=\gujiparameter{文字大小}]
 
 
 \protect

@@ -132,6 +132,7 @@ local function trad_chinese(tfmdata,key,value)
     local rotate_angle, expand_x, expand_y, depth_correction, trace = 0, 1, 1, 0, false
     local  bbox_pen, bbox_rulewd, bbox_color, base_rulewd, base_color, anchor_pen, anchor_rulewd, anchor_color = " 0 J 0 j ", 0, "0 0 0", 0, "0 0 0", " 1 J 1 j ", 0, "0 0 0"
     local anchor = 0
+    local strut = true
     local spec
     if type(value) == "string" and value ~= "" then
         spec = settings_to_hash(value)
@@ -141,6 +142,10 @@ local function trad_chinese(tfmdata,key,value)
         if spec.anchor then
             spec.anchor = string.lower(spec.anchor)
             anchor = (spec.anchor == "center" ) and 0 or (spec.anchor == "top") and -1 or (spec.anchor == "bottom") and 1 or (spec.anchor == "baseline") and (1-2*depth_correction)
+            if spec.anchor == "compact" then
+                anchor = -1
+                strut = false
+            end
             anchor_rulewd = " 2 w "
             anchor_color = "0 .5 .5" .. " RG "
         end
@@ -243,7 +248,11 @@ local function trad_chinese(tfmdata,key,value)
 --~         print("allowbreak type = " .. type(allowbreak))
 --~         add_commands(commands,{ "node", allowbreak })
         local new_c = { }
-        new_c["width"] = width
+        if strut then
+            new_c["width"] = width
+        else
+            new_c["width"] = width*expand_y
+        end
         new_c["height"] = height
         new_c["depth"] = depth
         new_c["commands"] = commands

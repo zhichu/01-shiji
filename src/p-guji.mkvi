@@ -43,17 +43,20 @@ pdf.setobjcompresslevel(0)
   [書名=史記%
   ,文字大小=27pt%
   ,基線深度=0.12% Adobe Song Std: .12
-  ,版芯寬度=\the \dimexpr \baselineskip \relax
+  ,版芯寛度=\the \dimexpr \baselineskip \relax
   ,每頁列數=10%
   ,每版列數=20%
   ,每列字數=22%
-  ,正文字體寬=1%
+  ,正文字體寛=1.2%
   ,正文字體高=1%
-  ,夾注字體寬=0.5%
-  ,夾注字體高=0.75%
-  ,眉批字體寬=0.85%
+  ,夾注字體寛=0.625%
+  ,夾注字體高=0.725%
+  ,眉批字體寛=0.85%
   ,眉批字體高=1%
   ,對齊方式=center%
+% 'compact' mode eventually causes ``! Arithmetic overflow''
+% and weird outputs, which is expected, to be fixed later
+%   ,對齊方式=compact%
   ,調試模式=off%
   ,樣式=金絲欄%
   ,頁碼=單頁頁碼%
@@ -66,7 +69,7 @@ pdf.setobjcompresslevel(0)
     {baseline=\gujiparameter{基線深度}%
     ,anchor=\gujiparameter{對齊方式}%
     ,rotate%
-    ,expand={x=\gujiparameter{正文字體寬}%
+    ,expand={x=\gujiparameter{正文字體寛}%
             ,y=\gujiparameter{正文字體高}}%
     ,trace=\gujiparameter{調試模式}%
     }%
@@ -79,7 +82,7 @@ pdf.setobjcompresslevel(0)
     {baseline=\gujiparameter{基線深度}%
     ,anchor=\gujiparameter{對齊方式}%
     ,rotate=90%
-    ,expand={x=\gujiparameter{夾注字體寬}%
+    ,expand={x=\gujiparameter{夾注字體寛}%
             ,y=\gujiparameter{夾注字體高}}%
     ,trace=\gujiparameter{調試模式}%
     }%
@@ -92,7 +95,7 @@ pdf.setobjcompresslevel(0)
     {baseline=\gujiparameter{基線深度}%
     ,anchor=\gujiparameter{對齊方式}%
     ,rotate=90%
-    ,expand={x=\gujiparameter{眉批字體寬}%
+    ,expand={x=\gujiparameter{眉批字體寛}%
             ,y=\gujiparameter{眉批字體高}}%
     ,trace=\gujiparameter{調試模式}%
     }%
@@ -116,6 +119,7 @@ pdf.setobjcompresslevel(0)
   [range={0x00400-0x2FA1F}%
   ,force=yes%
   ,features=jiazhu%
+%   ,scale=\the\numexpr \gujiparameter{正文字體寛}*0.5/\gujiparameter{夾注字體寛} \relax
   ]
 
 
@@ -189,25 +193,32 @@ pdf.setobjcompresslevel(0)
 \newdimen \jianheight
 \newdimen \lastjianheight
 \newdimen \firstjiazhuheight
+\newdimen \zhengwenunitheight
+\newdimen \jiazhuunitheight
+\jiazhuunitheight=\dimexpr \gujiparameter{夾注字體高}em \relax
+\zhengwenunitheight=\dimexpr \gujiparameter{正文字體高}em \relax
 \newcount \saveprevgraf
 \newcount \jiazhucount
+\newif    \iffirstlinejiazhu
 
 \defineattribute[gujiattr]
 
 
-\starttexdefinition 夾注 [#注]
+%D the old definition does not work with \localhsize
+\starttexdefinition 老夾注 [#注]
 %D calculate the height of the remain space
-  \ifhmode
-    \everymath   \emptytoks
-    \everydisplay\emptytoks
-    \predisplaypenalty\plustenthousand\relax \postdisplaypenalty\plustenthousand\relax
-    \abovedisplayskip-\baselineskip
-    \belowdisplayskip-\baselineskip
-    \abovedisplayshortskip\abovedisplayskip
-    \belowdisplayshortskip\belowdisplayskip
-    $$
-        \global \lastjianheight \dimexpr \predisplaysize-2em \relax
-    $$
+\lastjianheight\zeropoint
+\ifhmode
+  \everymath   \emptytoks
+  \everydisplay\emptytoks
+  \predisplaypenalty\plustenthousand\relax \postdisplaypenalty\plustenthousand\relax
+  \abovedisplayskip-\baselineskip
+  \belowdisplayskip-\baselineskip
+  \abovedisplayshortskip\abovedisplayskip
+  \belowdisplayshortskip\belowdisplayskip
+  $$
+      \global \lastjianheight \dimexpr \predisplaysize-2em \relax
+  $$
 %D restore the \prevgraf counter
 %     \saveprevgraf\prevgraf
 %D the display math environment adds 3 extra lines: "above," "math," and "below"
@@ -215,47 +226,153 @@ pdf.setobjcompresslevel(0)
 %D and the previous line has not really been officially finished
 %     \advance\saveprevgraf by -1
 %     \prevgraf\saveprevgraf
-    \setlocalhsize \jianheight\localhsize
-    \noindent\kern\lastjianheight
-    \firstjiazhuheight \dimexpr \jianheight-\lastjianheight \relax
-  \else
-%     \saveprevgraf\prevgraf
-    \setlocalhsize \jianheight\localhsize
-    \firstjiazhuheight\jianheight
-%     \hangindent=\effectiveleftskip \hangafter=\zerocount
-  \fi
+\fi
+\setlocalhsize \jianheight\localhsize
+\noindent\kern\lastjianheight
+\firstjiazhuheight \dimexpr \jianheight-\lastjianheight \relax
+\ifdim\firstjiazhuheight<1em \firstjiazhuheight\jianheight \fi
+\hangindent=\effectiveleftskip \hangafter=\zerocount
 %D done calculation.
 %D
 %D arrange jiazhu
-  \setbox\remainjiazhu=\vbox
-    \bgroup
-%       \offinterlineskip
-      \ifdim\firstjiazhuheight<1em
-        \parshape 1 \!!zeropoint \dimexpr 2\jianheight \relax
-      \else
-        \parshape 2 \!!zeropoint \dimexpr 2\firstjiazhuheight \relax \!!zeropoint \dimexpr 2\jianheight \relax
-      \fi
-      \tt #注\par
-    \egroup
+\setbox\remainjiazhu=\vbox
+  \bgroup
+%     \offinterlineskip
+    \ifdim\firstjiazhuheight<1em
+      \parshape 1 \!!zeropoint \dimexpr 2\jianheight \relax
+    \else
+      \parshape 2 \!!zeropoint \dimexpr 2\firstjiazhuheight \relax \!!zeropoint \dimexpr 2\jianheight \relax
+    \fi
+    \tt #注\par
+  \egroup
 %D
-%   \prevgraf\saveprevgraf
-%   \dosetattribute{gujiattr}{2}% jiazhu
-  \loop\ifvbox\remainjiazhu
-      \setbox\currentjiazhu=\vsplit\remainjiazhu to\baselineskip
-      \setbox\scratchbox=\vbox{%
+% \prevgraf\saveprevgraf
+% \dosetattribute{gujiattr}{2}% jiazhu
+\loop\ifvbox\remainjiazhu
+  \setbox\currentjiazhu=\vsplit\remainjiazhu to\baselineskip
+  \setbox\scratchbox=\vbox{%
+    \nointerlineskip
+    \offinterlineskip
+    \unvbox\currentjiazhu \par
+    \global\setbox\currentjiazhu=\lastbox
+    }%
+  \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
+  \setbox\scratchbox=\vbox{%
+    \hsize=\dimexpr \wd\scratchbox/2 \relax
+    \unhbox\scratchbox\par
+    \setbox2\lastbox
+    \unskip\unpenalty\unskip
+    \setbox1\lastbox
+    \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
+      \bgroup
+        \forgetall
+        \baselineskip\!!zeropoint
+        \lineskiplimit\!!zeropoint
         \nointerlineskip
-        \offinterlineskip
-        \unvbox\currentjiazhu \par
-        \global\setbox\currentjiazhu=\lastbox
-        }%
-      \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
-      \setbox\scratchbox=\vbox{%
+        \hbox{\unhbox1}%
+        \vss
+        \hbox{\unhbox2}%
+      \egroup
+  }%
+  \ifvoid\remainjiazhu
+    \setbox\lastjiazhu=\box\currentjiazhu
+  \else
+    \allowbreak\dontcomplain\dontleavehmode\box\currentjiazhu\allowbreak
+  \fi
+\repeat
+\allowbreak\dontcomplain\dontleavehmode\box\lastjiazhu\allowbreak
+% \dosetattribute{gujiattr}{1}% zhengwen
+\stoptexdefinition
+
+
+
+
+%D
+%D
+%D
+%D
+
+
+
+\starttexdefinition 夾注 [#注]
+%D calculate the height of the remain space
+\lastjianheight=\!!zeropoint
+\ifhmode
+  \everymath   \emptytoks
+  \everydisplay\emptytoks
+  \predisplaypenalty\plustenthousand\relax \postdisplaypenalty\plustenthousand\relax
+  \abovedisplayskip-\baselineskip
+  \belowdisplayskip-\baselineskip
+  \abovedisplayshortskip\abovedisplayskip
+  \belowdisplayshortskip\belowdisplayskip
+  $$
+      \global \lastjianheight=\dimexpr \predisplaysize-2em \relax
+  $$
+%D restore the \prevgraf counter
+%     \saveprevgraf\prevgraf
+%D the display math environment adds 3 extra lines: "above," "math," and "below"
+%     \advance\saveprevgraf by -3
+%D and the previous line has not really been officially finished
+%     \advance\saveprevgraf by -1
+%     \prevgraf\saveprevgraf
+\fi
+\noindent\kern\lastjianheight
+\setlocalhsize \jianheight=\localhsize
+\firstjiazhuheight=\dimexpr \jianheight-\lastjianheight \relax
+\ifdim\firstjiazhuheight<\jiazhuunitheight \firstjiazhuheight=\jianheight \fi
+%D done calculation
+%D
+%D jiazhu box
+\setbox\remainjiazhu=\vbox
+  \bgroup
+%     \offinterlineskip
+    \parshape 3 %
+      \!!zeropoint \firstjiazhuheight
+      \!!zeropoint \firstjiazhuheight
+      \!!zeropoint \jianheight
+    \tt #注\par
+  \egroup
+%D recursively print the jiazhu
+\firstlinejiazhutrue
+\loop\ifvbox\remainjiazhu
+  \setbox1=\vsplit\remainjiazhu to\baselineskip
+  \setbox2=\vsplit\remainjiazhu to\baselineskip
+  \ifvbox\remainjiazhu
+    \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
+      \bgroup
+        \forgetall
+        \baselineskip\!!zeropoint
+        \lineskiplimit\!!zeropoint
+        \nointerlineskip
+        \box1%
+        \vss
+        \box2%
+      \egroup
+    \allowbreak\dontcomplain\dontleavehmode
+    \iffirstlinejiazhu
+      \box\currentjiazhu
+      \firstlinejiazhufalse
+    \else
+      \box\currentjiazhu
+    \fi
+    \par
+  \else
+    \ifvbox2
+      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox2\par\global\setbox\currentjiazhu=\lastbox}%
+      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox1\par\global\setbox2=\lastbox}%
+      \setbox\currentjiazhu=\hbox{\unhbox2\unhbox\currentjiazhu}%
+    \else
+      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox1\par\global\setbox\currentjiazhu=\lastbox}%
+    \fi
+    \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
+    \setbox\scratchbox=\vbox
+      \bgroup
         \hsize=\dimexpr \wd\scratchbox/2 \relax
         \unhbox\scratchbox\par
         \setbox2\lastbox
         \unskip\unpenalty\unskip
         \setbox1\lastbox
-        \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax
+        \global\setbox\lastjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
           \bgroup
             \forgetall
             \baselineskip\!!zeropoint
@@ -265,24 +382,13 @@ pdf.setobjcompresslevel(0)
             \vss
             \hbox{\unhbox2}%
           \egroup
-      }%
-      \ifvoid\remainjiazhu
-        \setbox\lastjiazhu=\box\currentjiazhu
-      \else
-        \allowbreak\dontcomplain\dontleavehmode\box\currentjiazhu\allowbreak
-      \fi
-  \repeat
-  \allowbreak\dontcomplain\dontleavehmode\box\lastjiazhu\allowbreak
-%   \dosetattribute{gujiattr}{1}% zhengwen
+      \egroup
+  \fi
+\repeat
+\allowbreak\dontcomplain\dontleavehmode
+\box\lastjiazhu
+\allowbreak
 \stoptexdefinition
-
-
-%D
-%D
-%D
-%D
-
-
 
 
 
@@ -320,7 +426,7 @@ pdf.setobjcompresslevel(0)
 \newdimen \gujiwidth
 \newdimen \gujiheight
 
-\gujiwidth  \dimexpr \gujiparameter{文字大小}*\gujiparameter{每版列數} + \gujiparameter{版芯寬度} + \gujiparameter{文字大小}*9 \relax
+\gujiwidth  \dimexpr \gujiparameter{文字大小}*\gujiparameter{每版列數} + \gujiparameter{版芯寛度} + \gujiparameter{文字大小}*9 \relax
 \gujiheight \dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數} + \gujiparameter{文字大小}*8 \relax
 
 \definepapersize [竹簡]  [\c!width=\gujiheight,\c!height=\gujiwidth ]
@@ -371,8 +477,8 @@ pair WD, L, D, H;
 
 l := \the\baselineskip ;
 n := \gujiparameter{每頁列數} ;
-wd := \the\dimexpr \gujiparameter{文字大小}*\gujiparameter{正文字體寬} \relax ;
-m := \gujiparameter{版芯寬度} ;
+wd := \the\dimexpr \gujiparameter{正文字體寛}em \relax ;
+m := \gujiparameter{版芯寛度} ;
 ht := StrutHeight ;
 dp := StrutDepth ;
 dw := (wd+dp-ht)/2 ;
@@ -574,11 +680,13 @@ StopPage ;
 
 \setuphead
   [part]
-  [placehead=empty%
+  [placehead=no%
   ,style=normal%
   ,textstyle=normal%
   ,numberstyle=normal%
   ,number=no%
+  ,incrementnumber=list%
+  ,page=%
   ,before=%
   ,after=%
   ]
@@ -606,7 +714,8 @@ StopPage ;
   [style=normal%
   ,textstyle=normal%
   ,numberstyle=normal%
-  ,number=yes%
+  ,incrementnumber=list%
+  ,number=no%
   ,page=yes%
   ,continue=yes%
   ,alternative=command%
@@ -619,14 +728,19 @@ StopPage ;
   ,command=\doTitle%
   ]
 
-\definehead[bushi][title]
+\definehead[addedchapter][chapter]
 \setuphead
-  [bushi]
-  [command=\dobushi]
+  [addedchapter]
+  [command=\doAddedChapter
+  ,incrementnumber=list%
+  ,number=no%
+  ]
+
+
 
 \define[2]\doChapter{\hbox to15em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
 \define[2]\doTitle{#2}
-\define[2]\dobushi{\hbox to18em{\hbox to13em{#2\chaptercatagory}補史記}|[小司馬氏撰並注]}
+\define[2]\doAddedChapter{\hbox to18em{\hbox to13em{#2\chaptercatagory}補史記}|[小司馬氏撰並注]}
 
 % \definehead[本紀][chapter][style=,before=,after=]
 % \definehead[列傳][chapter][style=,before=,after=]
@@ -640,11 +754,21 @@ StopPage ;
   [chapter]
   [alternative=古籍:紀傳%
   ]
+\setuplist
+  [addedchapter]
+  [alternative=古籍:紀傳%
+  ]
 
 \definecombinedlist
   [content]
-  [part,chapter]
+  [part,chapter,addedchapter]
 
+
+\setupinteraction[state=start]
+  % color=, style=, contrastcolor=, focus=standard %these may help too
+\placebookmarks
+  [part,chapter,addedchapter,section] %written outlines
+  [part,chapter,addedchapter,section] %open outlines
 
 
 
@@ -660,76 +784,67 @@ StopPage ;
 \setupcounter[userpage][numberconversionset=pagenumber]
 
 \defineconversionset [目錄:pagenumber][][guji]
-\defineconversionset [補史記:pagenumber][][guji]
 \defineconversionset [本紀:pagenumber][][guji]
 \defineconversionset [年表:pagenumber][][guji]
 \defineconversionset [書:pagenumber][][guji]
 \defineconversionset [世家:pagenumber][][guji]
 \defineconversionset [列傳:pagenumber][][guji]
 
-\definesectionblock  [目錄][mulu]
+\definesectionblock  [目録][mulu]
 \definesectionblock  [本紀][benji]
-\definesectionblock  [補史記][bushiji]
 \definesectionblock  [年表][nianbiao]
 \definesectionblock  [書][shu]
 \definesectionblock  [世家][shijia]
 \definesectionblock  [列傳][liezhuan]
 
-\setupsectionblock   [目錄][page=yes,before=,after=]
+\setupsectionblock   [目録][page=yes,before=,after=]
 \setupsectionblock   [本紀][page=yes,before=,after=]
-\setupsectionblock   [補史記][page=yes,before=,after=]
 \setupsectionblock   [年表][page=yes,before=,after=]
 \setupsectionblock   [書][page=yes,before=,after=]
 \setupsectionblock   [世家][page=yes,before=,after=]
 \setupsectionblock   [列傳][page=yes,before=,after=]
 
-\startsectionblockenvironment[目錄]
+\startsectionblockenvironment[目録]
 \setcounter[userpage][1]%
 \def\coremarking{\gujiparameter{書名}目}%
-\def\earmarking{目錄}%
+\def\earmarking{目録}%
 \stopsectionblockenvironment
 
-
-\startsectionblockenvironment[補史記]
-\def\chaptercatagory{本紀}%
-\def\coremarking{\gujiparameter{書名}\getmarking[title][first]紀}%
-\def\earmarking{\getmarking[title][first]紀}%
-\stopsectionblockenvironment
 
 
 \startsectionblockenvironment[本紀]
+\part{帝紀}
 \def\chaptercatagory{本紀}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]紀}%
-% \writetolist[part]{帝紀}{帝紀}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
-\def\chaptercatagory{年表}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表}%
+\part{年表}
+\def\chaptercatagory{表}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]表}%
-% \writetolist[part]{年表}{年表}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
+\part{八書}
 \def\chaptercatagory{書}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]書}%
-% \writetolist[part]{八書}{八書}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
+\part{世家}
 \def\chaptercatagory{世家}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]世家}%
-% \writetolist[part]{世家}{世家}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
+\part{列傳}
 \def\chaptercatagory{列傳}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]傳}%
-% \writetolist[part]{列傳}{列傳}%
 \stopsectionblockenvironment
 
 
@@ -752,7 +867,7 @@ StopPage ;
   \global\setbox\normalpagebox=\vbox
     \bgroup
     \unvbox\scratchbox
-    \vskip\gujiparameter{版芯寬度}%
+    \vskip\gujiparameter{版芯寛度}%
     \unvbox\normalpagebox
     \egroup
 \to \everybeforeoutput
@@ -763,8 +878,6 @@ StopPage ;
 
 \protect
 % \nopenalties
-
-\setupinteraction[state=start]
 
 \stopmodule
 \endinput

@@ -629,7 +629,7 @@ StopPage ;
   ,hang=line%
   ,conversion=guji%
   ,before=%
-  ,after=%
+  ,after={\rawchapterfalse}%
   ,prefix=%
   ,sectionsegments=chapter%
   ,command=\doChapter%
@@ -660,13 +660,15 @@ StopPage ;
   [command=\doAddedChapter
   ,incrementnumber=list%
   ,number=no%
+  ,after={\rawchapterfalse}%
   ]
 
+\newif\ifrawchapter
 \definehead[rawchapter][chapter]
 \setuphead
   [rawchapter]
   [command=\doRawChapter
-  ,after={\xdef\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\placeheadnumber[chapter]}\xdef\earmarking{\getmarking[chapter][first]}}%
+  ,after={\rawchaptertrue}%
   ]
 
 
@@ -680,7 +682,7 @@ StopPage ;
 %D the extra 2em in the following macro may due to the
 %D \tex{\lastjianheight=\dimexpr \predisplaysize-2em \relax}
 %D part in the 夾注 definition
-\define[2]\doAddedChapter{\hbox to\dimexpr \titleheight \relax{#2\chaptercatagory \hfill 補史記}\kern2em|[小司馬氏撰並注]}
+\define[2]\doAddedChapter{\hbox to\dimexpr \titleheight \relax{#2\chaptercatagory \hfill 補史記}\kern2em\relax|[小司馬氏撰並注]}
 
 % \definehead[本紀][chapter][style=,before=,after=]
 % \definehead[列傳][chapter][style=,before=,after=]
@@ -759,36 +761,36 @@ StopPage ;
 \startsectionblockenvironment[本紀]
 \part{帝紀}%
 \def\chaptercatagory{本紀}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}%
-\def\earmarking{\getmarking[chapter][first]紀}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else紀\fi\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]\ifrawchapter\else紀\fi}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
 \part{年表}%
 \def\chaptercatagory{表}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表\placeheadnumber[chapter]}%
-\def\earmarking{\getmarking[chapter][first]表}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else表\fi\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]\ifrawchapter\else表\fi}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
 \part{八書}%
 \def\chaptercatagory{書}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書\placeheadnumber[chapter]}%
-\def\earmarking{\getmarking[chapter][first]書}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else書\fi\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]\ifrawchapter\else書\fi}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
 \part{世家}%
 \def\chaptercatagory{世家}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家\placeheadnumber[chapter]}%
-\def\earmarking{\getmarking[chapter][first]世家}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else世家\fi\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]\ifrawchapter\else世家\fi}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
 \part{列傳}%
 \def\chaptercatagory{列傳}%
-\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳\placeheadnumber[chapter]}%
-\def\earmarking{\getmarking[chapter][first]傳}%
+\def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else列傳\fi\placeheadnumber[chapter]}%
+\def\earmarking{\getmarking[chapter][first]\ifrawchapter\else傳\fi}%
 \stopsectionblockenvironment
 
 

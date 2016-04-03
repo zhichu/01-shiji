@@ -59,7 +59,10 @@ local new_penalty        = nodepool.penalty
 local nodecodes          = nodes.nodecodes
 local skipcodes          = nodes.skipcodes
 local glyph_code         = nodecodes.glyph
+local disc_code          = nodecodes.disc
 local glue_code          = nodecodes.glue
+local hlist_code         = nodecodes.hlist
+local vlist_code         = nodecodes.vlist
 local userskip_code      = skipcodes.userskip
 
 local a_scriptstatus     = attributes.private('scriptstatus')
@@ -286,15 +289,65 @@ registerotffeature {
 
 
 
+--~ callback.register('pre_linebreak_filter',
+--~  function(h, groupcode)
+--~   word = ''
+--~   for t in node.traverse(h) do
+--~    if node.id(t.id) == glyph_code and t.subtype == 0 then
+--~     word = word .. unicode.utf8.char(t.char)
+--~    elseif node.id(t.id) == disc_code then
+--~     word = word .. '-'
+--~    elseif node.id(t.id) == glue_code then
+--~     word = word .. ' '
+--~    end
+--~   end
+--~   texio.write_nl('NODE type=' ..  node.type(t.id) .. ' subtype=' .. t.subtype )
+--~   if t.id == glyph_code then
+--~     texio.write(' font=' .. t.font .. ' char=' .. unicode.utf8.char(t.char))
+--~   end
+--~   texio.write_nl(' -- ' .. word)
+--~   return true
+--~  end)
 
 
+function showlist(head,list_depth)
+    if head then
+        for t in node.traverse(head) do
+            texio.write_nl(string.rep("...",list_depth) .. 'NODE type=' .. node.type(t.id))
+            if t.id == hlist_code or t.id == vlist_code then
+                texio.write(' w=' .. t.width .. ' h=' .. t.height .. ' d=' .. t.depth .. ' s=' .. t.shift )
+                showlist(t.list,list_depth+1)
+            end
+            if t.id == glyph_code then
+                texio.write(' char=' .. utf8char(t.char))
+            end
+        end
+    end
+end
+
+function glyphlist(head)
+    local word = ''
+    if head then
+        for t in node.traverse(head) do
+            if t.id == hlist_code or t.id == vlist_code then
+                word = word .. glyphlist(t.list)
+            end
+            if t.id == glyph_code then
+                word = word .. utf8char(t.char)
+            end
+--~             if t.id == glue_code then
+--~                 remove_node(head,t,true)
+--~             end
+        end
+    end
+    return word
+end
+
+--~ implement { name = "showlist", actions = showlist, arguments = "string" }
 
 
-
-
-
-
-
+moduledata.guji.showlist = showlist
+moduledata.guji.glyphlist = glyphlist
 
 
 

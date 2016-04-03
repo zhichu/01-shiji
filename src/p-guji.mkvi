@@ -53,10 +53,10 @@ pdf.setobjcompresslevel(0)
   ,夾注字體高=0.725%
   ,眉批字體寛=0.85%
   ,眉批字體高=1%
-  ,對齊方式=center%
-% 'compact' mode eventually causes ``! Arithmetic overflow''
-% and weird outputs, which is expected, to be fixed later
-%   ,對齊方式=compact%
+%D 'compact' mode will give weird outputs, which is expected,
+%D but it eventually causes ``! Arithmetic overflow'' error.
+%D to be fixed later
+  ,對齊方式=center%compact
   ,調試模式=off%
   ,樣式=金絲欄%
   ,頁碼=單頁頁碼%
@@ -203,96 +203,11 @@ pdf.setobjcompresslevel(0)
 
 \defineattribute[gujiattr]
 
+\newevery\everyjiazhu\relax
 
-%D the old definition does not work with \localhsize
-\starttexdefinition 老夾注 [#注]
-%D calculate the height of the remain space
-\lastjianheight\zeropoint
-\ifhmode
-  \everymath   \emptytoks
-  \everydisplay\emptytoks
-  \predisplaypenalty\plustenthousand\relax \postdisplaypenalty\plustenthousand\relax
-  \abovedisplayskip-\baselineskip
-  \belowdisplayskip-\baselineskip
-  \abovedisplayshortskip\abovedisplayskip
-  \belowdisplayshortskip\belowdisplayskip
-  $$
-      \global \lastjianheight \dimexpr \predisplaysize-2em \relax
-  $$
-%D restore the \prevgraf counter
-%     \saveprevgraf\prevgraf
-%D the display math environment adds 3 extra lines: "above," "math," and "below"
-%     \advance\saveprevgraf by -3
-%D and the previous line has not really been officially finished
-%     \advance\saveprevgraf by -1
-%     \prevgraf\saveprevgraf
-\fi
-\setlocalhsize \jianheight\localhsize
-\noindent\kern\lastjianheight
-\firstjiazhuheight \dimexpr \jianheight-\lastjianheight \relax
-\ifdim\firstjiazhuheight<1em \firstjiazhuheight\jianheight \fi
-\hangindent=\effectiveleftskip \hangafter=\zerocount
-%D done calculation.
-%D
-%D arrange jiazhu
-\setbox\remainjiazhu=\vbox
-  \bgroup
-%     \offinterlineskip
-    \ifdim\firstjiazhuheight<1em
-      \parshape 1 \!!zeropoint \dimexpr 2\jianheight \relax
-    \else
-      \parshape 2 \!!zeropoint \dimexpr 2\firstjiazhuheight \relax \!!zeropoint \dimexpr 2\jianheight \relax
-    \fi
-    \tt #注\par
-  \egroup
-%D
-% \prevgraf\saveprevgraf
-% \dosetattribute{gujiattr}{2}% jiazhu
-\loop\ifvbox\remainjiazhu
-  \setbox\currentjiazhu=\vsplit\remainjiazhu to\baselineskip
-  \setbox\scratchbox=\vbox{%
-    \nointerlineskip
-    \offinterlineskip
-    \unvbox\currentjiazhu \par
-    \global\setbox\currentjiazhu=\lastbox
-    }%
-  \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
-  \setbox\scratchbox=\vbox{%
-    \hsize=\dimexpr \wd\scratchbox/2 \relax
-    \unhbox\scratchbox\par
-    \setbox2\lastbox
-    \unskip\unpenalty\unskip
-    \setbox1\lastbox
-    \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
-      \bgroup
-        \forgetall
-        \baselineskip\!!zeropoint
-        \lineskiplimit\!!zeropoint
-        \nointerlineskip
-        \hbox{\unhbox1}%
-        \vss
-        \hbox{\unhbox2}%
-      \egroup
-  }%
-  \ifvoid\remainjiazhu
-    \setbox\lastjiazhu=\box\currentjiazhu
-  \else
-    \allowbreak\dontcomplain\dontleavehmode\box\currentjiazhu\allowbreak
-  \fi
-\repeat
-\allowbreak\dontcomplain\dontleavehmode\box\lastjiazhu\allowbreak
-% \dosetattribute{gujiattr}{1}% zhengwen
-\stoptexdefinition
-
-
-
-
-%D
-%D
-%D
-%D
-
-
+\appendtoks
+    \tt
+\to \everyjiazhu
 
 \starttexdefinition 夾注 [#注]
 %D calculate the height of the remain space
@@ -318,11 +233,13 @@ pdf.setobjcompresslevel(0)
 \fi
 \noindent\kern\lastjianheight
 \setlocalhsize \jianheight=\localhsize
+% \directlua{texio.write_nl("---localhsize = \the\localhsize")}%
 \firstjiazhuheight=\dimexpr \jianheight-\lastjianheight \relax
 \ifdim\firstjiazhuheight<\jiazhuunitheight \firstjiazhuheight=\jianheight \fi
 %D done calculation
 %D
 %D jiazhu box
+% \dosetattribute{gujiattr}{2}% jiazhu
 \setbox\remainjiazhu=\vbox
   \bgroup
 %     \offinterlineskip
@@ -330,7 +247,7 @@ pdf.setobjcompresslevel(0)
       \!!zeropoint \firstjiazhuheight
       \!!zeropoint \firstjiazhuheight
       \!!zeropoint \jianheight
-    \tt #注\par
+    \the\everyjiazhu\relax #注\par
   \egroup
 %D recursively print the jiazhu
 \firstlinejiazhutrue
@@ -338,17 +255,12 @@ pdf.setobjcompresslevel(0)
   \setbox1=\vsplit\remainjiazhu to\baselineskip
   \setbox2=\vsplit\remainjiazhu to\baselineskip
   \ifvbox\remainjiazhu
-    \global\setbox\currentjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
-      \bgroup
-        \forgetall
-        \baselineskip\!!zeropoint
-        \lineskiplimit\!!zeropoint
-        \nointerlineskip
-        \box1%
-        \vss
-        \box2%
-      \egroup
+    \setbox\currentjiazhu=\hbox{\box1\box2}%
+    \setbox\currentjiazhu=\hbox{\the\everyjiazhu\relax \directlua{tex.sprint(moduledata.guji.glyphlist(tex.box.currentjiazhu.list))}}%
+    \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
+    \hsplit\scratchbox\currentjiazhu
     \allowbreak\dontcomplain\dontleavehmode
+%     \directlua{moduledata.guji.showlist(tex.box['currentjiazhu'].list,0)}%
     \iffirstlinejiazhu
       \box\currentjiazhu
       \firstlinejiazhufalse
@@ -357,37 +269,16 @@ pdf.setobjcompresslevel(0)
     \fi
     \par
   \else
-    \ifvbox2
-      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox2\par\global\setbox\currentjiazhu=\lastbox}%
-      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox1\par\global\setbox2=\lastbox}%
-      \setbox\currentjiazhu=\hbox{\unhbox2\unhbox\currentjiazhu}%
-    \else
-      \setbox\scratchbox=\vbox{\nointerlineskip\offinterlineskip\unvbox1\par\global\setbox\currentjiazhu=\lastbox}%
-    \fi
+    \setbox\currentjiazhu=\hbox{\box1\box2}%
+    \setbox\currentjiazhu=\hbox{\the\everyjiazhu\relax \directlua{tex.sprint(moduledata.guji.glyphlist(tex.box.currentjiazhu.list))}}%
     \setbox\scratchbox=\hbox{\unhbox\currentjiazhu}%
-    \setbox\scratchbox=\vbox
-      \bgroup
-        \hsize=\dimexpr \wd\scratchbox/2 \relax
-        \unhbox\scratchbox\par
-        \setbox2\lastbox
-        \unskip\unpenalty\unskip
-        \setbox1\lastbox
-        \global\setbox\lastjiazhu=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
-          \bgroup
-            \forgetall
-            \baselineskip\!!zeropoint
-            \lineskiplimit\!!zeropoint
-            \nointerlineskip
-            \hbox{\unhbox1}%
-            \vss
-            \hbox{\unhbox2}%
-          \egroup
-      \egroup
+    \hsplit\scratchbox\lastjiazhu
   \fi
 \repeat
 \allowbreak\dontcomplain\dontleavehmode
 \box\lastjiazhu
 \allowbreak
+% \dosetattribute{gujiattr}{1}% zhengwen
 \stoptexdefinition
 
 
@@ -395,7 +286,30 @@ pdf.setobjcompresslevel(0)
 
 
 
-
+\starttexdefinition hsplit #source #target
+% \directlua{texio.write_nl("---scratchbox = [width=\the\dimexpr \wd#source/2 \relax]") ; moduledata.guji.showlist(tex.box.scratchbox.list,0)}%
+\setbox#source=\vbox
+  \bgroup
+    \forgetall
+    \hsize=\dimexpr \wd#source/2 \relax
+    \unhbox\scratchbox\par
+    \setbox2\lastbox
+    \unskip\unpenalty\unskip
+    \setbox1\lastbox
+%   \ifvoid1\else\directlua{texio.write_nl("---box1 = ") ; moduledata.guji.showlist(tex.box[1].list,0)}\fi
+%   \ifvoid2\else\directlua{texio.write_nl("---box2 = ") ; moduledata.guji.showlist(tex.box[2].list,0)}\fi
+    \global\setbox#target=\vbox to \dimexpr \gujiparameter{正文字體寛}em \relax
+      \bgroup
+        \forgetall
+        \baselineskip\!!zeropoint
+        \lineskiplimit\!!zeropoint
+        \nointerlineskip
+        \hbox{\unhbox1}%
+        \vss
+        \hbox{\unhbox2}%
+      \egroup
+  \egroup
+\stoptexdefinition
 
 
 
@@ -436,17 +350,15 @@ pdf.setobjcompresslevel(0)
 \setuppapersize[竹簡,rotated,270][整頁]
 
 
-% \setupinterlinespace[line=1.45em]
-
 
 \setuplayout
-  [width=\dimexpr \gujiparameter{文字大小}*\gujiparameter{每列字數} \relax
+  [width=\dimexpr \gujiparameter{每列字數}em \relax
   ,horoffset=\zeropoint
   ,veroffset=\zeropoint
   ,headerdistance=\zeropoint
   ,footerdistance=\zeropoint
-  ,backspace=\dimexpr \paperwidth-\textwidth-\gujiparameter{文字大小}*2 \relax
-  ,topspace=\dimexpr \gujiparameter{文字大小}*2 \relax
+  ,backspace=\dimexpr \paperwidth-\textwidth-2em \relax
+  ,topspace=\dimexpr 2em \relax
   ,margin=\zeropoint
   ,header=\zeropoint
   ,footer=\zeropoint
@@ -508,7 +420,7 @@ p5 := p4 -- reverse p4 shifted L -- cycle ; % p5 =?= p3
 
 
 % 魚尾
-z10 = z0 + 5WD ; z20 + z10 = 2z0 + L ;
+z10 = z0 + 4.5WD ; z20 + z10 = 2z0 + L ;
 
 z11 - z12 = D ;
 .5[z11,z12] = origin - .2WD ;
@@ -604,80 +516,90 @@ StopPage ;
 
 
 
-\setupheadtext[content=目錄]
+\setupheadtext[content=目録]
 
 \defineconversion [guji]                   [\chinesenumerals]
 
 \definelistalternative
+   [古籍:卷]
+   [renderingsetup=古籍:卷]
+\definelistalternative
    [古籍:紀傳]
    [renderingsetup=古籍:紀傳]
 \definelistalternative
-   [古籍:卷]
-   [renderingsetup=古籍:卷]
+   [古籍:補紀傳]
+   [renderingsetup=古籍:補紀傳]
 
-% \startsetups[guji:1]
-%      \listparameter{before}
-%      \vbox \listboxproperties{all} {
-%          \forgetall
-%          \dontleavehmode
-%          \listrenderingsynchronize
-%          \bgroup
-%              \useliststyleandcolor{pagestyle}{pagecolor}
-%              \currentlistentrypagenumber
-%          \egroup
-%          \hskip3em
-%          \bgroup
-%              \useliststyleandcolor{numberstyle}{numbercolor}
-%              \currentlistsymbol
-%          \egroup
-%          .\space
-%          \bgroup
-%              \useliststyleandcolor{textstyle}{textcolor}
-%              \currentlistentrytitle
-%          \egroup
-%          \par
-%      }
-%      \par
-%      \listparameter{after}
-% \stopsetups
 
+%C stolen from strc-lst.mkiv
 \startsetups[古籍:紀傳]
-     \vbox \listboxproperties{all} {
-         \forgetall
-         \dontleavehmode
-         \listrenderingsynchronize
-         \hskip\dimexpr \gujiparameter{文字大小}*3 \relax
-         \bgroup
-             \useliststyleandcolor{textstyle}{textcolor}
-             \currentlistentrytitle
-         \egroup
-         \par
-     }
-     \par
+    \typo_injectors_check_list
+    \noindent
+    \typo_injectors_mark_list
+    \hbox \strc_lists_get_reference_attribute\v!all \strc_lists_get_destination_attribute to \hsize {
+        \strc_lists_set_style_color\c!style\c!color\v!all
+        \the\t_lists_every_renderingtext
+        \the\t_lists_every_renderingsynchronize
+        \setstrut
+        \begstrut
+        \hskip\dimexpr 3em \relax
+        \strc_lists_limitated_text
+        \currentlistentrytitle
+        第\currentlistentrynumber
+        \hfill
+        \currentlistentrypagenumber
+        \endstrut
+    }
+    \par
+    \listparameter\c!inbetween
+\stopsetups
+
+\startsetups[古籍:補紀傳]
+    \typo_injectors_check_list
+    \noindent
+    \typo_injectors_mark_list
+    \hbox \strc_lists_get_reference_attribute\v!all \strc_lists_get_destination_attribute to \hsize {
+        \strc_lists_set_style_color\c!style\c!color\v!all
+        \the\t_lists_every_renderingtext
+        \the\t_lists_every_renderingsynchronize
+        \setstrut
+        \begstrut
+        \hskip\dimexpr 3em \relax
+        \strc_lists_limitated_text
+        \currentlistentrytitle
+        \hfill
+        \currentlistentrypagenumber
+        \endstrut
+    }
+    \par
+    \listparameter\c!inbetween
 \stopsetups
 
 \startsetups[古籍:卷]
-     \vbox \listboxproperties{all} {
-         \forgetall
-         \dontleavehmode
-         \listrenderingsynchronize
-         \hskip\dimexpr \gujiparameter{文字大小}*2 \relax
-         \bgroup
-             \useliststyleandcolor{textstyle}{textcolor}
-             \currentlistentrytitle
-         \egroup
-         \par
-     }
-     \par
+    \typo_injectors_check_list
+    \noindent
+    \typo_injectors_mark_list
+    \hbox \strc_lists_get_reference_attribute\v!all \strc_lists_get_destination_attribute to \hsize {
+        \strc_lists_set_style_color\c!style\c!color\v!all
+        \the\t_lists_every_renderingtext
+        \the\t_lists_every_renderingsynchronize
+        \setstrut
+        \begstrut
+        \hskip\dimexpr 2em \relax
+        \strc_lists_limitated_text
+        \currentlistentrytitle
+        \hfill
+        \currentlistentrypagenumber
+        \endstrut
+    }
+    \par
+    \listparameter\c!inbetween
 \stopsetups
 
 
 
-% \starttexdefinition part #1
-% \xdef\partname     {#1}%
-% \xdef\shortpartname{#1}%
-% \stoptexdefinition
-
+% TODO
+% unwanted blank page is generated, to be fixed
 \setuphead
   [part]
   [placehead=no%
@@ -686,9 +608,13 @@ StopPage ;
   ,numberstyle=normal%
   ,number=no%
   ,incrementnumber=list%
-  ,page=%
+  ,hang=line%
+  ,page=no%
   ,before=%
   ,after=%
+  ,header=none%
+  ,text=none%
+  ,footer=none%
   ]
 
 \setuphead
@@ -736,11 +662,25 @@ StopPage ;
   ,number=no%
   ]
 
+\definehead[rawchapter][chapter]
+\setuphead
+  [rawchapter]
+  [command=\doRawChapter
+  ,after={\xdef\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\placeheadnumber[chapter]}\xdef\earmarking{\getmarking[chapter][first]}}%
+  ]
 
 
-\define[2]\doChapter{\hbox to15em{#2\chaptercatagory 第#1}\gujiparameter{書名}#1}
+\newcount\zhang
+\newdimen\titleheight
+\newbox\maxzhang \setbox\maxzhang=\hbox{\chinesenumerals{999}}
+\titleheight=\dimexpr \hsize-\wd\maxzhang \relax
+\define[2]\doChapter{\global\advance\zhang\plusone \hbox to\titleheight{#2\chaptercatagory 第#1\hfill\gujiparameter{書名}}\chinesenumerals{\zhang}}
+\define[2]\doRawChapter{\global\advance\zhang\plusone \hbox to\titleheight{#2第#1\hfill\gujiparameter{書名}}\chinesenumerals{\zhang}}
 \define[2]\doTitle{#2}
-\define[2]\doAddedChapter{\hbox to18em{\hbox to13em{#2\chaptercatagory}補史記}|[小司馬氏撰並注]}
+%D the extra 2em in the following macro may due to the
+%D \tex{\lastjianheight=\dimexpr \predisplaysize-2em \relax}
+%D part in the 夾注 definition
+\define[2]\doAddedChapter{\hbox to\dimexpr \titleheight \relax{#2\chaptercatagory \hfill 補史記}\kern2em|[小司馬氏撰並注]}
 
 % \definehead[本紀][chapter][style=,before=,after=]
 % \definehead[列傳][chapter][style=,before=,after=]
@@ -756,19 +696,23 @@ StopPage ;
   ]
 \setuplist
   [addedchapter]
+  [alternative=古籍:補紀傳%
+  ]
+\setuplist
+  [rawchapter]
   [alternative=古籍:紀傳%
   ]
 
 \definecombinedlist
   [content]
-  [part,chapter,addedchapter]
+  [part,chapter,addedchapter,rawchapter]
 
 
 \setupinteraction[state=start]
   % color=, style=, contrastcolor=, focus=standard %these may help too
 \placebookmarks
-  [part,chapter,addedchapter,section] %written outlines
-  [part,chapter,addedchapter,section] %open outlines
+  [part,chapter,addedchapter,rawchapter,section] %written outlines
+  [part,chapter,addedchapter,rawchapter,section] %open outlines
 
 
 
@@ -783,7 +727,7 @@ StopPage ;
 
 \setupcounter[userpage][numberconversionset=pagenumber]
 
-\defineconversionset [目錄:pagenumber][][guji]
+\defineconversionset [目録:pagenumber][][guji]
 \defineconversionset [本紀:pagenumber][][guji]
 \defineconversionset [年表:pagenumber][][guji]
 \defineconversionset [書:pagenumber][][guji]
@@ -813,35 +757,35 @@ StopPage ;
 
 
 \startsectionblockenvironment[本紀]
-\part{帝紀}
+\part{帝紀}%
 \def\chaptercatagory{本紀}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]紀\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]紀}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
-\part{年表}
+\part{年表}%
 \def\chaptercatagory{表}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]表\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]表}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
-\part{八書}
+\part{八書}%
 \def\chaptercatagory{書}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]書\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]書}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
-\part{世家}
+\part{世家}%
 \def\chaptercatagory{世家}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]世家\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]世家}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
-\part{列傳}
+\part{列傳}%
 \def\chaptercatagory{列傳}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]列傳\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]傳}%
@@ -858,10 +802,12 @@ StopPage ;
 \catcode`|=13
 \catcode`@=13
 \gdef|{\csname 夾注\endcsname}
-\gdef@[#1]{\csname 本紀\endcsname{#1}}
 \egroup
 
 
+% TODO
+% interaction lost
+% will be rewritten with output-routine
 \appendtoks
   \setbox\scratchbox=\vsplit\normalpagebox to .5\textheight
   \global\setbox\normalpagebox=\vbox
@@ -873,7 +819,7 @@ StopPage ;
 \to \everybeforeoutput
 
 \setupnarrower
-  [left=\gujiparameter{文字大小}]
+  [left=1em,right=\!!zeropoint]
 
 
 \protect

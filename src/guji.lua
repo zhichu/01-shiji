@@ -523,3 +523,6 @@ scripts.installmethod {
         },
     },
 }
+
+pdf.setcompresslevel(9)
+pdf.setobjcompresslevel(9)

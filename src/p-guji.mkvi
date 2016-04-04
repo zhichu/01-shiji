@@ -25,8 +25,8 @@
 
 \startluacode
 
-pdf.setcompresslevel(0)
-pdf.setobjcompresslevel(0)
+--pdf.setcompresslevel(0)
+--pdf.setobjcompresslevel(0)
 --pdf.setpagesattributes{/Rotate 90}
 
 \stopluacode
@@ -35,6 +35,9 @@ pdf.setobjcompresslevel(0)
 
 
 \unprotect
+% TODO
+% interaction lost
+% will be rewritten with output-routine
 
 \installnamespace                {guji}
 \installcommandhandler \????guji {guji} \????guji
@@ -49,7 +52,7 @@ pdf.setobjcompresslevel(0)
   ,每列字數=22%
   ,正文字體寛=1.2%
   ,正文字體高=1%
-  ,夾注字體寛=0.625%
+  ,夾注字體寛=0.65%
   ,夾注字體高=0.725%
   ,眉批字體寛=0.85%
   ,眉批字體高=1%
@@ -347,7 +350,8 @@ pdf.setobjcompresslevel(0)
 \definepapersize [整頁]  [\c!width=\gujiwidth ,\c!height=\gujiheight]
 
 
-\setuppapersize[竹簡,rotated,270][整頁]
+\setuppapersize[竹簡][竹簡]
+% \setuppapersize[竹簡,rotated,270][整頁]
 
 
 
@@ -708,10 +712,10 @@ StopPage ;
 \definecombinedlist
   [content]
   [part,chapter,addedchapter,rawchapter]
+  [interaction=all]
 
+\setupinteraction[state=start,color=, style=, contrastcolor=,focus=standard]
 
-\setupinteraction[state=start]
-  % color=, style=, contrastcolor=, focus=standard %these may help too
 \placebookmarks
   [part,chapter,addedchapter,rawchapter,section] %written outlines
   [part,chapter,addedchapter,rawchapter,section] %open outlines
@@ -802,14 +806,10 @@ StopPage ;
 
 \bgroup
 \catcode`|=13
-\catcode`@=13
 \gdef|{\csname 夾注\endcsname}
 \egroup
 
 
-% TODO
-% interaction lost
-% will be rewritten with output-routine
 \appendtoks
   \setbox\scratchbox=\vsplit\normalpagebox to .5\textheight
   \global\setbox\normalpagebox=\vbox
@@ -823,6 +823,14 @@ StopPage ;
 \setupnarrower
   [left=1em,right=\!!zeropoint]
 
+\definelines
+   [shuzan]
+   [indenting={yes,-1em,first},
+    before={\startnarrower[2em]},
+    after=\stopnarrower,
+    style={\setupalign[flushleft,nothyphenated]},
+%     style={\raggedright\nohyphens},
+    ]
 
 \protect
 % \nopenalties

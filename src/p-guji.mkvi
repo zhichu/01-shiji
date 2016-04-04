@@ -640,7 +640,7 @@ StopPage ;
 
 
 % TODO
-% unwanted blank page is generated, to be fixed
+% unwanted blank line is generated, to be fixed
 \setuphead
   [part]
   [placehead=no%
@@ -648,14 +648,15 @@ StopPage ;
   ,textstyle=normal%
   ,numberstyle=normal%
   ,number=no%
-  ,incrementnumber=list%
-  ,hang=line%
-  ,page=no%
+  ,incrementnumber=yes% 'list' will cause blank page
+  ,hang=none%
+  ,page=yes%
   ,before=%
   ,after=%
   ,header=none%
   ,text=none%
   ,footer=none%
+  ,sectionsegments=%
   ]
 
 \setuphead
@@ -672,7 +673,7 @@ StopPage ;
   ,before=%
   ,after={\rawchapterfalse}%
   ,prefix=%
-  ,sectionsegments=chapter%
+  ,sectionsegments=2%
   ,command=\doChapter%
   ]
 
@@ -691,35 +692,59 @@ StopPage ;
   ,before=%
   ,after=%
   ,prefix=%
-  ,sectionsegments=chapter%
+  ,sectionsegments=%
   ,command=\doTitle%
   ]
 
-\definehead[addedchapter][chapter]
+\startsetups [addedchapter:after]
+%   \noheaderandfooterlines
+  \rawchapterfalse
+  \global\setfalse\c_strc_sectioniong_ignore_page
+%   \leavevmode
+\stopsetups
+
+\startsetups [rawchapter:after]
+%   \noheaderandfooterlines
+  \rawchaptertrue
+%   \leavevmode
+\stopsetups
+
+
+\definehead[addedchapter][section=section-2,default=chapter]
+
 \setuphead
   [addedchapter]
   [command=\doAddedChapter
   ,incrementnumber=list%
   ,number=no%
-  ,after={\rawchapterfalse}%
+  ,after=\setups{addedchapter:after}%
+  ,sectionsegments=2%
   ]
+
 
 \newif\ifrawchapter
 \definehead[rawchapter][chapter]
 \setuphead
   [rawchapter]
   [command=\doRawChapter
-  ,after={\rawchaptertrue}%
+  ,after=\setups{rawchapter:after}%
+  ,sectionsegments=2%
   ]
+
+\setuphead[part,addedchapter,chapter,rawchapter][continue=yes,page=yes]
 
 
 \newcount\zhang
 \newdimen\titleheight
 \newbox\maxzhang \setbox\maxzhang=\hbox{\chinesenumerals{999}}
 \titleheight=\dimexpr \hsize-\wd\maxzhang \relax
+
 \define[2]\doChapter{\global\advance\zhang\plusone \hbox to\titleheight{#2\chaptercatagory 第#1\hfill\gujiparameter{書名}}\chinesenumerals{\zhang}}
+
 \define[2]\doRawChapter{\global\advance\zhang\plusone \hbox to\titleheight{#2第#1\hfill\gujiparameter{書名}}\chinesenumerals{\zhang}}
+
 \define[2]\doTitle{#2}
+
 %D the extra 2em in the following macro may due to the
 %D \tex{\lastjianheight=\dimexpr \predisplaysize-2em \relax}
 %D part in the 夾注 definition
@@ -776,12 +801,13 @@ console.println("Page " + JS_V_1 + " is rotated by " + rotation + " degrees.") ;
   ,color=%
   ,style=%
   ,contrastcolor=%
-  ,openaction={page(9),FitWidth}%,startmovie(whatever),JS(pagerotate)%only work in Acrobat Professional and Acrobat Standard,JS(rotatepage),JS(getrotate{V{5}})
+  ,openaction={page(8),FitWidth}%,startmovie(whatever),JS(pagerotate)%only work in Acrobat Professional and Acrobat Standard,JS(rotatepage),JS(getrotate{V{5}})
   ]
 
 \placebookmarks
   [part,chapter,addedchapter,rawchapter,section] %written outlines
-  [part,chapter,addedchapter,rawchapter,section] %open outlines
+  [part] %open outlines
+  [force=yes,number=no]
 
 
 
@@ -835,38 +861,38 @@ console.println("Page " + JS_V_1 + " is rotated by " + rotation + " degrees.") ;
 
 
 \startsectionblockenvironment[本紀]
-\part{帝紀}%
 \def\chaptercatagory{本紀}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else紀\fi\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]\ifrawchapter\else紀\fi}%
+\part{帝紀}
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
-\part{年表}%
 \def\chaptercatagory{表}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else表\fi\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]\ifrawchapter\else表\fi}%
+\part{年表}
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
-\part{八書}%
 \def\chaptercatagory{書}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else書\fi\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]\ifrawchapter\else書\fi}%
+\part{八書}
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
-\part{世家}%
 \def\chaptercatagory{世家}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else世家\fi\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]\ifrawchapter\else世家\fi}%
+\part{世家}
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
-\part{列傳}%
 \def\chaptercatagory{列傳}%
 \def\coremarking{\gujiparameter{書名}\getmarking[chapter][first]\ifrawchapter\else列傳\fi\placeheadnumber[chapter]}%
 \def\earmarking{\getmarking[chapter][first]\ifrawchapter\else傳\fi}%
+\part{列傳}
 \stopsectionblockenvironment
 
 

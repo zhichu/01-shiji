@@ -23,21 +23,46 @@
 
 \registerctxluafile{guji}{1.001}
 
+
 \startluacode
 
 --pdf.setcompresslevel(0)
 --pdf.setobjcompresslevel(0)
---pdf.setpagesattributes{/Rotate 90}
+--pdf.setpagesattributes("/Rotate 90")
+local pdfstring            = lpdf.string
+local pdfconstant          = lpdf.constant
+local addtocatalog         = lpdf.addtocatalog
+local addtopageattributes  = lpdf.addtopageattributes
+--local pdfliteral           = nodepool.pdfliteral
+
+--addtopageattributes("Rotate",pdfstring(90))
+--pdf.pagesattributes = "/Rotate 90"
 
 \stopluacode
 
+% \pdfpagesattr
+%   { /Rotate 90
+%     /CropBox [0 0 612 792] }
 
+% \global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}
+
+% \pdfpagesattr{ /Rotate 90 }
+
+%\doPDFaddtocatalog{
+%    /PageLayout /SinglePage  % SinglePage/OneColumn/TwoColumnLeft/TwoColumnRight
+%    /PageMode /UseNone  % UseNone/UseOutlines/UseThumbs/FullScreen/UseOC
+%    /OpenAction [0 /XYZ 0 0 1]   % pagenumber (starts with 0), then destination
+%    /ViewerPreferences <<
+%%               /HideToolbar true
+%                /HideMenubar true
+%%               /HideWindowUI true
+%%               /FitWindow true
+%%               /CenterWindow true
+%        >>
+%}
 
 
 \unprotect
-% TODO
-% interaction lost
-% will be rewritten with output-routine
 
 \installnamespace                {guji}
 \installcommandhandler \????guji {guji} \????guji
@@ -182,6 +207,14 @@
 % \tracingonline2
 % \showboxbreadth1000
 % \showboxdepth1000
+
+% \showstruts
+% \showgrid
+% \showsetups
+% \showframe
+% \tracingparagraphs=1
+% \tracefontdefinitions
+% \tracingmacros=1
 
 % \defaultgridwidowpenalty        \!!zeropoint
 % \defaultgriddisplaywidowpenalty \!!zeropoint
@@ -351,6 +384,10 @@
 
 
 \setuppapersize[竹簡][竹簡]
+
+% TODO
+% interaction lost when paper rotated
+% will be rotated with other ways
 % \setuppapersize[竹簡,rotated,270][整頁]
 
 
@@ -714,7 +751,33 @@ StopPage ;
   [part,chapter,addedchapter,rawchapter]
   [interaction=all]
 
-\setupinteraction[state=start,color=, style=, contrastcolor=,focus=standard]
+
+
+
+\startJScode {pagerotate} %used now
+this.setPageRotations(90) ;
+\stopJScode
+
+\startJScode {rotatepage} %used now
+app.execMenuItem("RotatePages") ;
+% app.addMenuItem({ cName: "MyRotatePages", cUser: "Ro&tate Pages", cParent: "File", cExec: "app.execMenuItem(\"RotatePages\")", cEnable: "event.rc = (event.target != null);"});
+\stopJScode
+
+\startJScode {getrotate}
+var rotation = this.getPageRotation(JS_V_1) ;
+console.println("Page " + JS_V_1 + " is rotated by " + rotation + " degrees.") ;
+\stopJScode
+
+\setupinteraction
+  [state=start%
+  ,title=\gujiparameter{書名}%
+  ,focus=standard
+  ,click=no%
+  ,color=%
+  ,style=%
+  ,contrastcolor=%
+  ,openaction={page(9),FitWidth}%,startmovie(whatever),JS(pagerotate)%only work in Acrobat Professional and Acrobat Standard,JS(rotatepage),JS(getrotate{V{5}})
+  ]
 
 \placebookmarks
   [part,chapter,addedchapter,rawchapter,section] %written outlines
@@ -732,13 +795,22 @@ StopPage ;
 \setuppagenumbering[location=]
 
 \setupcounter[userpage][numberconversionset=pagenumber]
+% \setupuserpagenumber[way=byblock]
+% \setupuserpagenumber[numberconversionset=pagenumber]
 
-\defineconversionset [目録:pagenumber][][guji]
-\defineconversionset [本紀:pagenumber][][guji]
-\defineconversionset [年表:pagenumber][][guji]
-\defineconversionset [書:pagenumber][][guji]
-\defineconversionset [世家:pagenumber][][guji]
-\defineconversionset [列傳:pagenumber][][guji]
+
+\definestructureconversionset [目録:pagenumber][][guji]
+\definestructureconversionset [本紀:pagenumber][][guji]
+\definestructureconversionset [年表:pagenumber][][guji]
+\definestructureconversionset [書:pagenumber][][guji]
+\definestructureconversionset [世家:pagenumber][][guji]
+\definestructureconversionset [列傳:pagenumber][][guji]
+\defineconversionset          [目録:pagenumber][][guji]
+\defineconversionset          [本紀:pagenumber][][guji]
+\defineconversionset          [年表:pagenumber][][guji]
+\defineconversionset          [書:pagenumber][][guji]
+\defineconversionset          [世家:pagenumber][][guji]
+\defineconversionset          [列傳:pagenumber][][guji]
 
 \definesectionblock  [目録][mulu]
 \definesectionblock  [本紀][benji]
@@ -831,6 +903,21 @@ StopPage ;
     style={\setupalign[flushleft,nothyphenated]},
 %     style={\raggedright\nohyphens},
     ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \protect
 % \nopenalties

@@ -710,12 +710,14 @@ StopPage ;
 \stopsetups
 
 
-\definehead[addedchapter][section=section-2,default=chapter]
+\definehead[addedchapter][coupling=chapter,default=chapter]
 
 \setuphead
   [addedchapter]
   [command=\doAddedChapter
   ,incrementnumber=list%
+  ,page=yes%
+  ,continue=yes%
   ,number=no%
   ,after=\setups{addedchapter:after}%
   ,sectionsegments=2%

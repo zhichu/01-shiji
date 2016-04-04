@@ -166,7 +166,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="本紀",
    ["internal"]=4,
-   ["realpage"]=11,
+   ["realpage"]=12,
    ["section"]=4,
    ["used"]="fit",
   },

@@ -650,11 +650,9 @@ StopPage ;
 \def\strc_sectioning_handle_page_nop
   {\edef\p_continue{\headparameter\c!continue}%
    \ifx\p_continue\v!yes
-     \ifnum\currentheadlevel=\previousheadlevel
+     \ifnum\currentheadlevel>\previousheadlevel\else
        \strc_sectioning_check_layout
-     \else\ifnum\currentheadlevel<\previousheadlevel
-       \strc_sectioning_check_layout
-     \fi\fi
+     \fi
    \else
      \strc_sectioning_check_layout
    \fi

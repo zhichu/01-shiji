@@ -662,6 +662,10 @@ StopPage ;
   ,sectionsegments=%
   ]
 
+\unexpanded\def\strc_rendering_place_head_empty
+  {\setheadmarking
+   \getheadsyncs}
+
 \setuphead
   [chapter]
   [style=normal%
@@ -720,7 +724,6 @@ StopPage ;
 
 \newconditional\simplechaptercatagoryisattached
 \startsetups[紀傳:after]
-%      \doifelse{rawchapter}\currenthead{\rawchaptertrue}{\rawchapterfalse}%
 \doifelse{rawchapter}{\currenthead}%
   {\setfalse\simplechaptercatagoryisattached}%
   {\settrue \simplechaptercatagoryisattached}%
@@ -888,32 +891,32 @@ console.println("Page " + JS_V_1 + " is rotated by " + rotation + " degrees.") ;
 \startsectionblockenvironment[本紀]
 \def\chaptercatagory{本紀}%
 \def\simplechaptercatagory{紀}%
-\part{帝紀}
+\part{帝紀}%\synchronizehead{part}%
 % \writetolist[part]{}{帝紀}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[年表]
 \def\chaptercatagory{表}%
 \def\simplechaptercatagory{表}%
-\part{年表}
+\part{年表}%\synchronizehead{part}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[書]
 \def\chaptercatagory{書}%
 \def\simplechaptercatagory{書}%
-\part{八書}
+\part{八書}%\synchronizehead{part}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[世家]
 \def\chaptercatagory{世家}%
 \def\simplechaptercatagory{世家}%
-\part{世家}
+\part{世家}%\synchronizehead{part}%
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[列傳]
 \def\chaptercatagory{列傳}%
 \def\simplechaptercatagory{傳}%
-\part{列傳}
+\part{列傳}%\synchronizehead{part}%
 \stopsectionblockenvironment
 
 

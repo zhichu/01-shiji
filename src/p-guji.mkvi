@@ -639,9 +639,28 @@ StopPage ;
 
 
 
-% TODO
-% \part{...}\title{...}\chapter{...} outputs continuous title-chapter
-% but \part\chapter\title gives the correct result
+
+% \tex{\chapter} in \tex{\part\title\chapter} does not open
+% a new page, but \text{\title} in \tex{\part\chapter\title}
+% does. Maybe \tex{\previoussectioncountervalue} and
+% \tex{\currentsectioncountervalue} do not get the correct
+% values.
+\newcount\previousheadlevel
+\previousheadlevel\plusone
+\def\strc_sectioning_handle_page_nop
+  {\edef\p_continue{\headparameter\c!continue}%
+   \ifx\p_continue\v!yes
+     \ifnum\currentheadlevel=\previousheadlevel
+       \strc_sectioning_check_layout
+     \else\ifnum\currentheadlevel<\previousheadlevel
+       \strc_sectioning_check_layout
+     \fi\fi
+   \else
+     \strc_sectioning_check_layout
+   \fi
+   \previousheadlevel\currentheadlevel}
+
+
 \setuphead
   [part]
   [placehead=no%

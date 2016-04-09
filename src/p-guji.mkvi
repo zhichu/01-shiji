@@ -645,18 +645,49 @@ StopPage ;
 % does. Maybe \tex{\previoussectioncountervalue} and
 % \tex{\currentsectioncountervalue} do not get the correct
 % values.
-\newcount\previousheadlevel
-\previousheadlevel\plusone
+
+% fixed temporary by Hans, will be removed when fixed in new beta
+\def\currentsectioncountervalue {\clf_depthnumber\numexpr\thenamedheadlevel\currenthead\relax}
+%def\previoussectioncountervalue{\clf_depthnumber\numexpr\thenamedheadlevel\currenthead+\minusone\relax}
+\def\previoussectioncountervalue{\clf_depthnumber\numexpr\thenamedheadlevel\previoushead\relax}
+\let\previoushead\empty
 \def\strc_sectioning_handle_page_nop
   {\edef\p_continue{\headparameter\c!continue}%
    \ifx\p_continue\v!yes
-     \ifnum\currentheadlevel>\previousheadlevel\else
-       \strc_sectioning_check_layout
-     \fi
+     \ifx\currenthead\previoushead % not really needed
+        \strc_sectioning_check_layout
+     \else\ifnum\previoussectioncountervalue=\zerocount
+        \strc_sectioning_check_layout
+     \else\ifnum\currentsectioncountervalue>\zerocount
+        \strc_sectioning_check_layout
+     \fi\fi\fi
    \else
      \strc_sectioning_check_layout
    \fi
-   \previousheadlevel\currentheadlevel}
+   \globallet\previoushead\currenthead}
+\def\strc_sectioning_handle_page_yes
+  {\ifconditional\c_strc_sectioniong_ignore_page
+     \setfalse\c_strc_sectioniong_ignore_page
+   \else
+     % beware, these numbers are not yet know here
+     \strc_sectioning_handle_page_nop
+     \edef\p_aligntitle{\headparameter\c!aligntitle}%
+     \ifx\p_aligntitle\v!float
+         \ifconditional\c_strc_sectioning_auto_break
+           \vspacing[\v!samepage-\currentheadlevel]%
+         \fi
+         \headparameter\c!before\relax
+         \indent
+     \else
+         \page_otr_command_flush_side_floats
+         \ifconditional\c_strc_sectioning_auto_break
+           \vspacing[\v!samepage-\currentheadlevel]%
+         \fi
+         \headparameter\c!before\relax
+     \fi
+     \global\c_strc_sectioniong_preceding_level\currentheadlevel
+   \fi
+   \globallet\previoushead\currenthead}
 
 
 \setuphead
